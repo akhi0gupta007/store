@@ -15,7 +15,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenerationTime;
+import org.hibernate.validator.Email;
 
 /**
  * @author akhilesh
@@ -35,6 +37,7 @@ public class User {
 	private String password;
 	
 	@Column(nullable=false,unique=true)
+	@Email
 	private String emailId;
 	
     @Column(name = "DATE_CREATED", insertable = false, updatable = false, columnDefinition = "timestamp default current_timestamp")

@@ -6,38 +6,44 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.ForeignKey;
+import org.hibernate.validator.Pattern;
 
 @Entity(name = "profile")
 public class Profile {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-    
-    @Column(nullable=true)
+
+	@Column(nullable = true)
 	private String address;
-    
-    @Column(nullable=true)
+
+	@Column(nullable = true)
 	private String mobile;
-    
-    @Column(nullable=true)
+
+	@Pattern(regex = "(^$|[0-9]{10})")
+	@Column(nullable = true)
 	private String phone;
-    
-    @Column(nullable=true)
+
+	@Column(nullable = true)
 	private String purpose;
-    
-    @Column(nullable=true)
+
+	@Column(nullable = true)
 	private String expertise;
-    
-    @Column(nullable=true)
+
+	@Column(nullable = true)
 	private String country;
-    
-    @Column(nullable=true)
+
+	@Column(nullable = true)
 	private String fullName;
-	
-    @JoinColumn(name="user",nullable=false)
-    private User user;
-	
+
+	@OneToOne
+	@JoinColumn(nullable = false, name = "user")
+	@ForeignKey(name = "FK_USER")
+	private User user;
 
 	public String getAddress() {
 		return address;
