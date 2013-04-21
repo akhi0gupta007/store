@@ -8,6 +8,8 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<context:annotation-config />
+	<context:component-scan base-package="com.akhi.store.util"/>
+	<context:component-scan base-package="com.akhi.store.test"/>
 	<bean
 		class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
 
@@ -43,8 +45,10 @@
 			</props>
 		</property>
 	</bean>
-
-	<bean id="factory" class="com.akhi.store.util.HibernateUtil" autowire="byType">
-
-	</bean>
+	
+	<!-- <bean id="stub" class="com.akhi.store.test.UserTest" autowire="byType"/> -->
+	
+	<!-- <bean id="factory" class="com.akhi.store.util.HibernateUtil" autowire="byType"/>
+ -->
+	
 </beans>
