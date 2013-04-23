@@ -17,7 +17,7 @@ public class HibernateUtil implements DaoUtils
     public HibernateUtil(SessionFactory sessionFactory)
 	{
 	this.sessionFactory = sessionFactory;
-	System.out.println("Session Factory: " + sessionFactory);
+	System.out.println("Session Factory: //////////////////////////////////////////////////" + sessionFactory);
 	//System.out.println("Session : "+ getSession());
 	}
 
