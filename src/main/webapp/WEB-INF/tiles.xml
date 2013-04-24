@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	<definition name="baseLayout" template="/layout/BaseLayout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/layout/Header.jsp" />
+		<put-attribute name="menu" value="/layout/Menu.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/layout/Footer.jsp" />
+		<put-attribute cascade="true" name="topbar" value="/layout/topbar.jsp"></put-attribute>
+	</definition>
+
+	<definition name="/welcome.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Welcome" />
+		<put-attribute name="body" value="/Welcome.jsp" />
+	</definition>
+
+	<definition name="customer" extends="baseLayout">
+		<put-attribute name="title" value="Customer Form" />
+		<put-attribute name="body" value="/WEB-INF/user/login.jsp" />
+	</definition>
+
+	<definition name="/success.tiles" extends="baseLayout">
+		<put-attribute name="title" value="DashBoard" />
+		<put-attribute name="body" value="/WEB-INF/user/welcome_user.jsp" />
+	</definition>
+
+	<definition name="/admin.tiles" extends="baseLayout">
+		<put-attribute name="title" value="DashBoard" />
+		<put-attribute name="body" value="/WEB-INF/user/welcome_user.jsp" />
+	</definition>
+
+	<definition name="/taskForm.tiles" extends="baseLayout">
+		<put-attribute name="title" value="TaskForm" />
+		<put-attribute name="body" value="/WEB-INF/user/taskForm.jsp" />
+	</definition>
+
+
+	<definition name="/error.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Error Page" />
+		<put-attribute name="body" value="/error.jsp" />
+	</definition>
+
+</tiles-definitions>

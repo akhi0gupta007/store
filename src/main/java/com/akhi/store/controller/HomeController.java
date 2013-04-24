@@ -29,6 +29,6 @@ public class HomeController
 	log.info("HomeController home");
 	service.addUser(null );
 	System.out.println("HomeController: Passing through...");
-	return "WEB-INF/views/home.jsp";
+	return "customer";
 	}
     }

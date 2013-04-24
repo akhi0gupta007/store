@@ -20,13 +20,18 @@
 	<context:component-scan base-package="com.akhi.store.service" />
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
+	
+	<mvc:resources location="/css/**" mapping="/css/"/>
+	<mvc:resources location="/js/**" mapping="/js/"/>
+	
 	<context:annotation-config />
 
 
 	<bean
 		class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
-	
-	<bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/>
+
+	<bean
+		class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor" />
 
 	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -34,6 +39,7 @@
 			<value>/WEB-INF/database.properties</value>
 		</property>
 	</bean>
+
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -70,5 +76,25 @@
 	</bean>
 
 	<tx:annotation-driven transaction-manager="txMgr" />
+
+
+	<!-- Tiles Related Configurations -->
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass">
+			<value>
+				org.springframework.web.servlet.view.tiles2.TilesView
+			</value>
+		</property>
+	</bean>
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/tiles.xml</value>
+			</list>
+		</property>
+	</bean>
 
 </beans>

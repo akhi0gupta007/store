@@ -1,0 +1,191 @@
+#header {
+	width: 1100px;
+	height: 70px;
+	margin: 0px auto;
+}
+
+#header h1 {
+	color: white;
+	padding: 20px 0 0 6px;
+	font-size: 2.6em;
+	font-family: Georgia, serif;
+	color: #4E443C;
+	font-variant: small-caps;
+	text-transform: none;
+	font-weight: 100;
+	margin-bottom: 0;
+}
+
+
+body {
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	font: normal 11px auto "Trebuchet MS", Verdana, Arial, Helvetica,
+		sans-serif;
+	font-size: 13px;
+	line-height: normal;
+	font-size-adjust: none;
+	font-stretch: normal;
+	color: #333333;
+	background: #E6EAE9;
+}
+
+#page {
+	width: 1100px;
+	margin: 0px auto;
+	padding: 4px 0;
+	text-align: left;
+}
+
+#content {
+	float: left;
+	width: 560px;
+	color: #000;
+}
+
+#sidebar {
+	float: right;
+	width: 250px;
+	color: #000;
+	padding: 2px;
+	font-family: "Adobe Caslon Pro", "Hoefler Text", Georgia, Garamond,
+		Times, serif;
+	letter-spacing: 0.1em;
+	text-transform: lowercase;
+	line-height: 145%;
+	font-size: 14pt;
+	font-variant: small-caps;
+}
+
+.notif {
+	background-color: #FFCCCC;
+	width: 200px;
+	margin-bottom: 8px;
+	font-size: 10pt;
+}
+
+.notif li {
+	list-style: none;
+}
+
+#footer {
+	clear: both;
+	text-align: center;
+	padding: 3px;
+	border-top: 1px solid #333;
+}
+
+#topbar {
+	text-align: center;
+	width: 1100px;
+	margin: 0px auto;
+	padding: 5px 0;
+}
+
+#topbar #menu {
+	float: right;
+	width: 240px;
+	text-align: center;
+	font-size: 14px;
+}
+
+#topbar1 {
+	text-align: center;
+	width: 1100px;
+	margin: 0px auto;
+	padding: 5px 0;
+}
+
+#topbar1 #menu {
+	float: center;
+	width: 240px;
+	text-align: right;
+	font-size: 14px;
+}
+
+.message {
+	font-size: 0.8em;
+	line-height: 2;
+	margin: 1em 2em;
+	padding: 0.5em;
+}
+
+.message {
+	background: #f3f3ff;
+	border: 1px solid #b2d1ff;
+	color: #006dba;
+	-moz-box-shadow: 0 0 0.25em #b2d1ff;
+	-webkit-box-shadow: 0 0 0.25em #b2d1ff;
+	box-shadow: 0 0 0.25em #b2d1ff;
+}
+
+a {
+	text-decoration: none;
+	color: #c75f3e;
+}
+
+#sddm {
+	margin: 0;
+	padding: 0;
+	z-index: 30
+}
+
+#sddm li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	float: left;
+	font: bold 11px arial
+}
+
+#sddm li a {
+	display: block;
+	margin: 0 1px 0 0;
+	padding: 4px 10px;
+	width: 60px;
+	background: #5970B2;
+	color: #FFF;
+	text-align: center;
+	text-decoration: none
+}
+
+#sddm li a:hover {
+	background: #49A3FF
+}
+
+#sddm div {
+	position: absolute;
+	visibility: hidden;
+	margin: 0;
+	padding: 0;
+	background: #EAEBD8;
+	border: 1px solid #5970B2
+}
+
+#sddm div a {
+	position: relative;
+	display: block;
+	margin: 0;
+	padding: 5px 10px;
+	width: auto;
+	white-space: nowrap;
+	text-align: left;
+	text-decoration: none;
+	background: #EAEBD8;
+	color: #2875DE;
+	font: 11px arial
+}
+
+#sddm div a:hover {
+	background: #49A3FF;
+	color: #FFF
+}
+
+.error_strings {
+	color: #ffeba2;
+}
+
+.hov:hover {
+	background: #fbf4ff;
+}

@@ -1,0 +1,24 @@
+<style>
+    ul.nav { border-bottom:1px solid gray; }
+
+    ul.nav li {
+        display:inline;
+        position:relative;
+        padding:5px 5px 5px 5px;
+        top:-5px;
+        border:1px solid gray;
+        background-color:lightgray;
+        margin-left:5px;
+    }
+    ul.nav li.selected {
+        background-color:white;
+        border-bottom:none;
+        top:-4px;
+    }
+</style>
+<ul class="nav">
+    <li class="selected">Tab 12<li>
+    <li>Tab 2<li>
+    <li>Tab 3<li>
+    <li>Tab 4<li>
+</ul>
