@@ -1,0 +1,120 @@
+#header {
+width: 1100px;
+background: #FFFFFF url(../images/header_background.gif) repeat-x;
+height: 70px;
+margin: 0px auto;
+}
+#header h1 {
+font-family:Arial,sans-serif;
+color: white;
+padding: 20px 0 0 6px;
+font-size:1.6em;
+}
+body {
+margin: 0px;
+padding: 0px;
+text-align:center;
+font-family: "Trebuchet MS",Arial,Helvetica,sans-serif;
+font-style: normal;
+font-variant: normal;
+font-weight: normal;
+font-size: 13px;
+line-height: normal;
+font-size-adjust: none;
+font-stretch: normal;
+color: #333333;
+}
+#page {
+width: 100%;
+margin: 0px auto;
+padding: 4px 0;
+text-align:left;
+}
+#content {
+float: left;
+width: 560px;
+color: #000;
+}
+
+#sidebar {
+float: right;
+width: 150px;
+color: #000;
+padding: 3px;
+}
+#footer {
+clear:both;
+text-align: center;
+padding: 3px;
+border-top: 1px solid #333;
+}
+#topbar {
+text-align:left;
+width: 1100px;
+margin: 0px auto;
+padding: 5px 0;
+}
+#topbar #menu {
+float: right;
+width: 240px;
+text-align: right;
+font-size: 14px;
+}
+#topbar1 {
+text-align:center;
+width: 1100px;
+margin: 0px auto;
+padding: 5px 0;
+}
+#topbar1 #menu {
+float: center;
+width: 240px;
+text-align: right;
+font-size: 14px;
+}
+.message {
+	font-size: 0.8em;
+	line-height: 2;
+	margin: 1em 2em;
+	padding: 0.5em;
+}
+
+.message {
+	background: #f3f3ff;
+	border: 1px solid #b2d1ff;
+	color: #006dba;
+	   -moz-box-shadow: 0 0 0.25em #b2d1ff;
+	-webkit-box-shadow: 0 0 0.25em #b2d1ff;
+	        box-shadow: 0 0 0.25em #b2d1ff;
+}
+  .button {
+        border-top: 1px solid #96d1f8;
+        background: #65a9d7;
+        background: -webkit-gradient(linear, left top, left bottom, from(#3e779d), to(#65a9d7));
+        background: -webkit-linear-gradient(top, #3e779d, #65a9d7);
+        background: -moz-linear-gradient(top, #3e779d, #65a9d7);
+        background: -ms-linear-gradient(top, #3e779d, #65a9d7);
+        background: -o-linear-gradient(top, #3e779d, #65a9d7);
+        padding: 5px 10px;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+        -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+        -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+        box-shadow: rgba(0,0,0,1) 0 1px 0;
+        text-shadow: rgba(0,0,0,.4) 0 1px 0;
+        color: white;
+        font-size: 14px;
+        font-family: Georgia, serif;
+        text-decoration: none;
+        vertical-align: middle;
+    }
+    .button:hover {
+        border-top-color: #28597a;
+        background: #28597a;
+        color: #ccc;
+    }
+    .button:active {
+        border-top-color: #1b435e;
+        background: #1b435e;
+    }
