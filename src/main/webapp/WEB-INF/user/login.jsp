@@ -1,33 +1,75 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="css/tabtastic.css" />
+
+<link href="<s:url value="/resources" />/css/tabtastic.css"
+	rel="stylesheet" type="text/css" />
+
 <style type="text/css">
 .errors {
-	background-color:#FFCCCC;
-	border:1px solid #CC0000;
-	width:400px;
-	margin-bottom:8px;
+	background-color: #FFCCCC;
+	border: 1px solid #CC0000;
+	width: 400px;
+	margin-bottom: 8px;
 }
-.errors li{ 
-	list-style: none; 
+
+.errors li {
+	list-style: none;
 }
 </style>
 </head>
 <body>
-<div align="center" id="login">
-<h2>User Login Here</h2>
- 
+	<div align="center" id="login">
+		<h2>User Login Here</h2>
 
 
-<!-- <s:form action="Welcome">
-	<s:textfield name="username" label="Username"/>
-	<s:password name="password" label="Password"/>
-	<s:submit/>
-</s:form> -->
 
-</div>
+		<form:form method="POST" <%-- commandName="user" --%>>
+			<table>
+				<tr>
+					<td>User Name :</td>
+					<td><form:input path="name" /></td>
+				</tr>
+				<tr>
+					<td>Password :</td>
+					<td><form:password path="password" /></td>
+				</tr>
+				<tr>
+					<td>Gender :</td>
+					<td><form:radiobutton path="gender" value="M" label="M" /> <form:radiobutton
+							path="gender" value="F" label="F" /></td>
+				</tr>
+				<tr>
+					<td>Country :</td>
+					<td><form:select path="country">
+							<form:option value="0" label="Select" />
+							<form:options items="${countryList}" itemValue="countryId"
+								itemLabel="countryName" />
+						</form:select></td>
+				</tr>
+				<tr>
+					<td>About you :</td>
+					<td><form:textarea path="aboutYou" /></td>
+				</tr>
+				<tr>
+					<td>Community :</td>
+					<td><form:checkboxes path="communityList"
+							items="${communityList}" itemValue="key" itemLabel="value" /></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><form:checkbox path="mailingList"
+							label="Would you like to join our mailinglist?" /></td>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="submit" value="Register"></td>
+				</tr>
+			</table>
+		</form:form>
+
+	</div>
 
 
 </body>

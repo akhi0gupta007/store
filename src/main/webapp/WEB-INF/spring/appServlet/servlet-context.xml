@@ -21,8 +21,8 @@
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
 	
-	<mvc:resources location="/css/**" mapping="/css/"/>
-	<mvc:resources location="/js/**" mapping="/js/"/>
+	<mvc:resources location="/resources/**" mapping="/resources/"/>
+	<!-- <mvc:resources location="/js/**" mapping="/js/"/> -->
 	
 	<context:annotation-config />
 
