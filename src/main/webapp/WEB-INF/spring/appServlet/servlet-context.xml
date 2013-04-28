@@ -20,10 +20,10 @@
 	<context:component-scan base-package="com.akhi.store.service" />
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
-	
-	<mvc:resources location="/resources/**" mapping="/resources/"/>
+
+	<mvc:resources location="/resources/**" mapping="/resources/" />
 	<!-- <mvc:resources location="/js/**" mapping="/js/"/> -->
-	
+
 	<context:annotation-config />
 
 
@@ -95,6 +95,16 @@
 				<value>/WEB-INF/tiles.xml</value>
 			</list>
 		</property>
+	</bean>
+
+	<!-- Validators -->
+	<bean class="com.akhi.store.validator.UserValidator" id="validator"
+		autowire="byType" />
+
+	<!-- Register the Customer.properties -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="Customer" />
 	</bean>
 
 </beans>

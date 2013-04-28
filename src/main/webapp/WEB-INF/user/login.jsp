@@ -18,16 +18,43 @@
 .errors li {
 	list-style: none;
 }
+
+.errorblock {
+	color: #000;
+	background-color: #ffEEEE;
+	border: 3px solid #ff0000;
+	padding: 8px;
+	margin: 16px;
+}
 </style>
 </head>
 <body>
 	<div align="center" id="login">
 		<h2>User Login Here</h2>
 
+		<form:form method="POST" commandName="customer">
+			<form:errors path="*" cssClass="errorblock" element="div" />
 
-
-		<form:form method="POST" <%-- commandName="user" --%>>
 			<table>
+				<tr>
+					<td>User Name :</td>
+					<td><form:input path="userId" /></td>
+					<td><form:errors path="userId" cssClass="error" /></td>
+				</tr>
+				<tr>
+					<td>Password :</td>
+					<td><form:password path="password" /></td>
+					<td><form:errors path="password" cssClass="error" /></td>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="submit" value="Submit"></td>
+				</tr>
+			</table>
+
+		</form:form>
+
+		<%-- <form:form method="POST" <%-- commandName="user" --%>
+		<%-- 	<table>
 				<tr>
 					<td>User Name :</td>
 					<td><form:input path="name" /></td>
@@ -66,8 +93,8 @@
 				<tr>
 					<td colspan="2"><input type="submit" value="Register"></td>
 				</tr>
-			</table>
-		</form:form>
+			</table> --%>
+		<%-- 	</form:form> --%>
 
 	</div>
 

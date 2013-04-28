@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService
     @Override
     public void addUser( User user )
 	{
-	log.info("AddUser:::::::::::::::::::::"+sessionFactory.getCurrentSession());
+	log.info("AddUser:::::::::::::::::::::");
 	}
 
     @Override

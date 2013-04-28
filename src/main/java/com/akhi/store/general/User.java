@@ -24,91 +24,115 @@ import org.hibernate.validator.Email;
  * 
  */
 @Entity(name = "user")
-public class User {
+public class User
+    {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long id;
-	
-	@Column(nullable=false,unique=true)
-	private String userId;
-	
-	@Column(nullable=false)
-	private String password;
-	
-	@Column(nullable=false,unique=true)
-	@Email
-	private String emailId;
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long    id;
+
+    @Column(nullable = false, unique = true)
+    private String  userId;
+
+    @Column(nullable = false)
+    private String  password;
+
+    @Column(nullable = false, unique = true)
+    @Email
+    private String  emailId;
+
     @Column(name = "DATE_CREATED", insertable = false, updatable = false, columnDefinition = "timestamp default current_timestamp")
     @org.hibernate.annotations.Generated(value = GenerationTime.INSERT)
     @Temporal(TemporalType.TIMESTAMP)
-	private Date dateCreated;
-    
-    @Column(nullable=true)
-	private String aboutUs;
-    
-    @Column(nullable=true)
-	private String domain;
-    
-    
-    @OneToOne(cascade={CascadeType.ALL},mappedBy="user")
-   	private Profile profile;
+    private Date    dateCreated;
 
-	public String getUserId() {
-		return userId;
+    @Column(nullable = true)
+    private String  aboutUs;
+
+    @Column(nullable = true)
+    private String  domain;
+
+    @OneToOne(cascade =
+	{ CascadeType.ALL }, mappedBy = "user")
+    private Profile profile;
+
+    public String getUserId()
+	{
+	return userId;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+    public void setUserId( String userId )
+	{
+	this.userId = userId;
 	}
 
-	public String getPassword() {
-		return password;
+    public String getPassword()
+	{
+	return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+    public void setPassword( String password )
+	{
+	this.password = password;
 	}
 
-	public String getEmailId() {
-		return emailId;
+    public String getEmailId()
+	{
+	return emailId;
 	}
 
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
+    public void setEmailId( String emailId )
+	{
+	this.emailId = emailId;
 	}
 
-	public Date getDateCreated() {
-		return dateCreated;
+    public Date getDateCreated()
+	{
+	return dateCreated;
 	}
 
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
+    public void setDateCreated( Date dateCreated )
+	{
+	this.dateCreated = dateCreated;
 	}
 
-	public String getAboutUs() {
-		return aboutUs;
+    public String getAboutUs()
+	{
+	return aboutUs;
 	}
 
-	public void setAboutUs(String aboutUs) {
-		this.aboutUs = aboutUs;
+    public void setAboutUs( String aboutUs )
+	{
+	this.aboutUs = aboutUs;
 	}
 
-	public String getDomain() {
-		return domain;
+    public String getDomain()
+	{
+	return domain;
 	}
 
-	public void setDomain(String domain) {
-		this.domain = domain;
+    public void setDomain( String domain )
+	{
+	this.domain = domain;
 	}
 
-	public Profile getProfile() {
-		return profile;
+    public Profile getProfile()
+	{
+	return profile;
 	}
 
-	public void setProfile(Profile profile) {
-		this.profile = profile;
+    public void setProfile( Profile profile )
+	{
+	this.profile = profile;
 	}
 
-}
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString()
+	{
+	return "User [id=" + id + ", userId=" + userId + ", password=" + password + ", emailId=" + emailId + ", dateCreated=" + dateCreated + ", aboutUs=" + aboutUs + ", domain=" + domain + ", profile=" + profile + "]";
+	}
+
+    }
