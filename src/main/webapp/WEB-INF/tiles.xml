@@ -23,7 +23,7 @@
 		<put-attribute name="body" value="/WEB-INF/user/login.jsp" />
 	</definition>
 
-	<definition name="/success.tiles" extends="baseLayout">
+	<definition name="success" extends="baseLayout">
 		<put-attribute name="title" value="DashBoard" />
 		<put-attribute name="body" value="/WEB-INF/user/welcome_user.jsp" />
 	</definition>

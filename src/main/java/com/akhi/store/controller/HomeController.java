@@ -41,6 +41,7 @@ public class HomeController
 	User user = new User();
 	model.addAttribute("customer", user);
 	
+	
 	return "customer";
 	}
 
@@ -59,7 +60,7 @@ public class HomeController
 	    {
 	    user = service.autheticate(user.getUserId(), user.getPassword());
 
-	    return "customer";
+	    return "success";
 	    }
 
 	}
