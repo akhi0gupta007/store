@@ -40,14 +40,14 @@ public class HomeController
 	log.info("HomeController home");
 	User user = new User();
 	model.addAttribute("customer", user);
-	
+
 	
 	return "customer";
 	}
 
     @RequestMapping(method = RequestMethod.POST)
     public String processLogin( @ModelAttribute("customer")
-    User user, BindingResult result, SessionStatus status )
+    User user, BindingResult result, SessionStatus status, ModelMap model )
 	{
 	log.info("Process Login " + user);
 	validator.validate(user, result);
@@ -59,7 +59,8 @@ public class HomeController
 	else
 	    {
 	    user = service.autheticate(user.getUserId(), user.getPassword());
-
+	    log.info("processLogin()"+user);
+	    model.addAttribute("customer",user);
 	    return "success";
 	    }
 

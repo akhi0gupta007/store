@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 <html>
@@ -95,6 +96,8 @@ th.specalt {
 <body>
 	<h1>DashBoard</h1>
 	Welcome, what else I can say, huh
+	<c:out value="Hello Tags"></c:out>
+
 
 
 </body>

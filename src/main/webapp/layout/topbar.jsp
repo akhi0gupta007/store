@@ -1,8 +1,15 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-<p align="right">
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-You are :Akhilesh
-<br/>
-<a href="/">DashBoard</a>
+<p align="right">
+	<c:choose>
+		<c:when test="${sessionScope.customer.userId != null}">
+	You are : ${sessionScope.customer.userId} <br />
+			<a href="">Logout</a>
+		</c:when>
+		<c:otherwise>
+			<a href="">Login</a>
+		</c:otherwise>
+	</c:choose>
 
 </p>
