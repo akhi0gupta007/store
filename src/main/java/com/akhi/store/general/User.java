@@ -14,8 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.validator.Email;
 
@@ -24,6 +24,7 @@ import org.hibernate.validator.Email;
  * 
  */
 @Entity(name = "user")
+@XmlRootElement
 public class User
     {
 
@@ -125,6 +126,14 @@ public class User
 	{
 	this.profile = profile;
 	}
+
+    /**
+     * @return Returns the id.
+     */
+    public long getId()
+        {
+        return id;
+        }
 
     /* (non-Javadoc)
      * @see java.lang.Object#toString()

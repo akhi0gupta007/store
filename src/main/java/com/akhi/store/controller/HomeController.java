@@ -39,9 +39,7 @@ public class HomeController
 	{
 	log.info("HomeController home");
 	User user = new User();
-	model.addAttribute("customer", user);
-
-	
+	model.addAttribute("customer", user);	
 	return "customer";
 	}
 
