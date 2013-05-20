@@ -1,14 +1,13 @@
 package com.akhi.store.general;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-import org.hibernate.annotations.ForeignKey;
 import org.hibernate.validator.Pattern;
 
 @Entity(name = "profile")
@@ -41,9 +40,7 @@ public class Profile {
 	@Column(nullable = true)
 	private String fullName;
 
-	@OneToOne
-	@JoinColumn(nullable = false, name = "user")
-	@ForeignKey(name = "FK_USER")
+	@OneToOne(mappedBy="profile",cascade=CascadeType.MERGE)
 	private User user;
 
 	public String getAddress() {

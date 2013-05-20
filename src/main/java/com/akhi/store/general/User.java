@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -53,8 +54,8 @@ public class User
     @Column(nullable = true)
     private String  domain;
 
-    @OneToOne(cascade =
-	{ CascadeType.ALL }, mappedBy = "user")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "PROFILE_ID")
     private Profile profile;
 
     public String getUserId()
@@ -131,9 +132,9 @@ public class User
      * @return Returns the id.
      */
     public long getId()
-        {
-        return id;
-        }
+	{
+	return id;
+	}
 
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
