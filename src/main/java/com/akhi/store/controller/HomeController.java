@@ -1,6 +1,7 @@
 package com.akhi.store.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -28,7 +29,8 @@ public class HomeController
 
     private static org.apache.log4j.Logger log = Logger.getLogger(HomeController.class);
 
-    @Autowired
+    @Autowired(required=true)
+    @Qualifier("daopowered")
     private UserService		    service;
 
     @Autowired

@@ -18,6 +18,7 @@
 	<!-- @Controller, @Service, @Configuration, etc. -->
 	<context:component-scan base-package="com.akhi.store.controller" />
 	<context:component-scan base-package="com.akhi.store.service" />
+	<context:component-scan base-package="com.akhi.store.dao" />
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
 

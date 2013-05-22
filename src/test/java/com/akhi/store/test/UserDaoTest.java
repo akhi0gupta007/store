@@ -1,7 +1,6 @@
 package com.akhi.store.test;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
 import org.junit.After;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -53,16 +52,26 @@ public class UserDaoTest
 	user.setProfile(profile);
 	log.info("DAO: " + dao.makePersistent(user));
 	log.info(user.getProfile() + "  " + profile.getUser());
-	
-	log.info("Searching by User and password");
-	assertEquals("Found the same object",user, dao.findByIdAndPassword("akhi","password"));
 
+	log.info("Searching by User and password");
+	assertEquals("Found the same object",
+		     user,
+		     dao.findByIdAndPassword("akhi", "password"));
+	profile.setCountry("Pakistan");
+	
+	user.setProfile(profile);
+	dao.makePersistent(user);
+	//dao.makeTransient(user);
+
+	User user2 = dao.findByIdAndPassword("akhi","password");
+	System.out.println(user2);
+	
 	}
 
     @Test
     public void shouldBeAbleToFindByCriteria()
 	{
-	
-	//log.info("DAO    2   "+dao);
+	log.warn("::::::::::::::::::::"+dao.findByIdAndPassword("akhi","password"));
+
 	}
     }

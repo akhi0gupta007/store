@@ -37,7 +37,7 @@ import com.akhi.store.general.User;
 */
 /*-----------------------------------------------------------------------*/
 
-@Service
+@Service(value="userService")
 @Transactional
 @TransactionConfiguration(transactionManager = "txMgr", defaultRollback = true)
 public class UserServiceImpl implements UserService
@@ -48,9 +48,10 @@ public class UserServiceImpl implements UserService
     private static Logger  log = Logger.getLogger(UserServiceImpl.class);
 
     @Override
-    public void addUser( User user )
+    public User addUser( User user )
 	{
 	log.info("AddUser:::::::::::::::::::::");
+	return null;
 	}
 
     @Override

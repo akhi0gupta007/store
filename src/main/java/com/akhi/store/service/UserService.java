@@ -31,7 +31,7 @@ import com.akhi.store.general.User;
 public interface UserService
     {
     
-    void addUser(User user);
+    User addUser(User user);
     void removeUser(User user);
     User autheticate(String userId,String password);
     
