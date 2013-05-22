@@ -20,60 +20,53 @@ import com.akhi.store.validator.UserValidator;
  * Handles requests for the application home page.
  */
 @Controller
-@RequestMapping(value =
-    { "/", "/home" })
-@SessionAttributes(value =
-    { "customer" })
-public class HomeController
-    {
+@RequestMapping(value = { "/", "/home" })
+@SessionAttributes(value = { "customer" })
+public class HomeController {
 
-    private static org.apache.log4j.Logger log = Logger.getLogger(HomeController.class);
+	private static org.apache.log4j.Logger log = Logger
+			.getLogger(HomeController.class);
 
-    @Autowired(required=true)
-    @Qualifier("daopowered")
-    private UserService		    service;
+	@Autowired(required = true)
+	@Qualifier("daopowered")
+	private UserService service;
 
-    @Autowired
-    private UserValidator		  validator;
+	@Autowired
+	private UserValidator validator;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String home( ModelMap model )
-	{
-	log.info("HomeController home");
-	User user = new User();
-	model.addAttribute("customer", user);	
-	return "customer";
+	@RequestMapping(method = RequestMethod.GET)
+	public String home(ModelMap model) {
+		log.info("HomeController home");
+		User user = new User();
+		model.addAttribute("customer", user);
+		return "customer";
 	}
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String processLogin( @ModelAttribute("customer")
-    User user, BindingResult result, SessionStatus status, ModelMap model )
-	{
-	log.info("Process Login " + user);
-	validator.validate(user, result);
+	@RequestMapping(method = RequestMethod.POST)
+	public String processLogin(@ModelAttribute("customer") User user,
+			BindingResult result, SessionStatus status, ModelMap model) {
+		log.info("Process Login " + user);
+		validator.validate(user, result);
 
-	if (result.hasErrors())
-	    {
-	    return "customer";
-	    }
-	else
-	    {
-	    user = service.autheticate(user.getUserId(), user.getPassword());
-	    log.info("processLogin()"+user);
-	    model.addAttribute("customer",user);
-	    return "success";
-	    }
+		if (result.hasErrors()) {
+			return "customer";
+		} else {
+			log.info("Before Service" + user);
+			user = service.autheticate(user.getUserId(), user.getPassword());
+			log.info("processLogin() " + user + " against" + user.getUserId()
+					+ "" + user.getPassword());
+			model.addAttribute("customer", user);
+			return "success";
+		}
 
 	}
 
-    public UserValidator getValidator()
-	{
-	return validator;
+	public UserValidator getValidator() {
+		return validator;
 	}
 
-    public void setValidator( UserValidator validator )
-	{
-	this.validator = validator;
+	public void setValidator(UserValidator validator) {
+		this.validator = validator;
 	}
 
-    }
+}
