@@ -12,12 +12,6 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.stereotype.Service;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.akhi.store.general.User;
 
 /*-----------------------------------------------------------------------*//**
@@ -37,9 +31,7 @@ import com.akhi.store.general.User;
 */
 /*-----------------------------------------------------------------------*/
 
-@Service(value="userService")
-@Transactional
-@TransactionConfiguration(transactionManager = "txMgr", defaultRollback = true)
+//@Service(value="userService")
 public class UserServiceImpl implements UserService
     {
 
@@ -95,8 +87,8 @@ public class UserServiceImpl implements UserService
 	return sessionFactory;
 	}
 
-    @Autowired
-    @Required
+ /*   @Autowired
+    @Required*/
     public void setSessionFactory( SessionFactory sessionFactory )
 	{
 	this.sessionFactory = sessionFactory;
