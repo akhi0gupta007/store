@@ -3,6 +3,8 @@
  */
 package com.akhi.store.general;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -13,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,6 +23,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.validator.Email;
+
+import com.akhi.store.product.Product;
+import com.akhi.store.product.Vendor;
 
 /**
  * @author akhilesh
@@ -57,6 +63,13 @@ public class User {
 	@OneToOne(cascade = CascadeType.ALL, optional = true, fetch = FetchType.LAZY)
 	@JoinColumn(name = "PROFILE_ID")
 	private Profile profile;
+	
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="user")
+	private Collection<Product> products = new ArrayList<Product>();
+	
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="user")
+	private Collection<Vendor> vendors = new ArrayList<Vendor>();
+
 
 	public String getUserId() {
 		return userId;
@@ -133,5 +146,15 @@ public class User {
 				+ dateCreated + ", aboutUs=" + aboutUs + ", domain=" + domain
 				+ ", profile=" + profile + "]";
 	}
+
+	public Collection<Product> getProducts()
+	    {
+		return products;
+	    }
+
+	public void setProducts( Collection<Product> products )
+	    {
+		this.products = products;
+	    }
 
 }

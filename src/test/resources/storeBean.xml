@@ -38,6 +38,8 @@
 			<list>
 				<value>com.akhi.store.general.User</value>
 				<value>com.akhi.store.general.Profile</value>
+				<value>com.akhi.store.product.Product</value>
+				<value>com.akhi.store.product.Vendor</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

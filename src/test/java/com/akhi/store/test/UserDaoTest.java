@@ -1,5 +1,7 @@
 package com.akhi.store.test;
 
+import java.util.ArrayList;
+
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Test;
@@ -15,60 +17,88 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.akhi.store.dao.ProductDao;
 import com.akhi.store.dao.UserDao;
 import com.akhi.store.general.Profile;
 import com.akhi.store.general.User;
+import com.akhi.store.product.Product;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:storeBean.xml" })
+@ContextConfiguration(locations =
+    { "classpath:storeBean.xml" })
 @TransactionConfiguration(transactionManager = "txMgr", defaultRollback = false)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-		TransactionalTestExecutionListener.class })
-public class UserDaoTest {
+@TestExecutionListeners(
+    { DependencyInjectionTestExecutionListener.class, TransactionalTestExecutionListener.class })
+public class UserDaoTest
+    {
 
-	@Autowired
-	private UserDao dao;
+    @Autowired
+    private UserDao      dao;
 
-	public static Logger log = Logger.getLogger(UserDaoTest.class);
+    @Autowired
+    private ProductDao   productDao;
 
-	@After
-	public void cleanup() {
-		// deleteFromTables(jdbcTemplate, "spitter");
+    public static Logger log = Logger.getLogger(UserDaoTest.class);
+
+    @After
+    public void cleanup()
+	{
+	// deleteFromTables(jdbcTemplate, "spitter");
 	}
 
-	@Transactional
-	@Test
-	public void shouldCreateRowsAndSetIds() {
-		User user = new User();
-		user.setEmailId("akhi0gupta007@gmail.com");
-		user.setUserId("akhi");
-		user.setPassword("password");
-		Profile profile = new Profile();
-		profile.setPhone("9718304337");
-		profile.setUser(user);
-		user.setProfile(profile);
-		log.info("DAO: " + dao.makePersistent(user));
-		log.info(user.getProfile() + "  " + profile.getUser());
+    @Transactional
+    @Test
+    public void shouldCreateRowsAndSetIds()
+	{
+	User user = new User();
+	user.setEmailId("akhi0gupta007@gmail.com");
+	user.setUserId("akhi");
+	user.setPassword("password");
+	Profile profile = new Profile();
+	profile.setPhone("9718304337");
+	profile.setUser(user);
+	user.setProfile(profile);
+	log.info("DAO: " + dao + " we have product DAO " + productDao);
+	Product product = makeProduct();
+	product.setUser(user);
+	ArrayList<Product> products = new ArrayList<Product>();
+	products.add(product);
+	user.setProducts(products);
+	dao.makePersistent(user);
+	log.info(user.getProfile() + "  " + profile.getUser());
 
-		log.info("Searching by User and password");
-		assertEquals("Found the same object", user,
-				dao.findByIdAndPassword("akhi", "password"));
-		profile.setCountry("Pakistan");
+	log.info("Searching by User and password");
+	assertEquals("Found the same object",
+		     user,
+		     dao.findByIdAndPassword("akhi", "password"));
+	profile.setCountry("Pakistan");
 
-		user.setProfile(profile);
-		dao.makePersistent(user);
-		// dao.makeTransient(user);
+	user.setProfile(profile);
+	dao.makePersistent(user);
+	// dao.makeTransient(user);
 
-		User user2 = dao.findByIdAndPassword("akhi", "password");
-		System.out.println(user2);
+	User user2 = dao.findByIdAndPassword("akhi", "password");
+	System.out.println(user2);
 
 	}
 
-	@Transactional(propagation=Propagation.REQUIRED)
-	@Test
-	public void shouldBeAbleToFindByCriteria() {
-		log.warn("::::::::::::::::::::"
-				+ dao.findByIdAndPassword("akhi", "password"));
+    @Transactional(propagation = Propagation.REQUIRED)
+    //  @Test
+    public void shouldBeAbleToFindByCriteria()
+	{
+	log.warn("::::::::::::::::::::" + dao.findByIdAndPassword("akhi",
+								  "password"));
 
 	}
-}
+
+    private Product makeProduct()
+	{
+	Product product = new Product();
+	product.setTitle("RIN");
+	product.setSel_price(123.0);
+	product.setPro_id("223");
+
+	return product;
+
+	}
+    }
