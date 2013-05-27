@@ -53,6 +53,22 @@ public class Vendor
 	}
 
     /**
+     * @return Returns the user.
+     */
+    public User getUser()
+        {
+        return user;
+        }
+
+    /**
+     * @param user The user to set.
+     */
+    public void setUser( User user )
+        {
+        this.user = user;
+        }
+
+    /**
      * @return Returns the description.
      */
     public String getDescription()

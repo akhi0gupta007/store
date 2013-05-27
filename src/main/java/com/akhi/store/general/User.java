@@ -71,6 +71,22 @@ public class User {
 	private Collection<Vendor> vendors = new ArrayList<Vendor>();
 
 
+	/**
+	 * @return Returns the vendors.
+	 */
+	public Collection<Vendor> getVendors()
+	    {
+	    return vendors;
+	    }
+
+	/**
+	 * @param vendors The vendors to set.
+	 */
+	public void setVendors( Collection<Vendor> vendors )
+	    {
+	    this.vendors = vendors;
+	    }
+
 	public String getUserId() {
 		return userId;
 	}

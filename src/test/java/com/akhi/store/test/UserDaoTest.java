@@ -22,6 +22,7 @@ import com.akhi.store.dao.UserDao;
 import com.akhi.store.general.Profile;
 import com.akhi.store.general.User;
 import com.akhi.store.product.Product;
+import com.akhi.store.product.Vendor;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations =
@@ -61,9 +62,16 @@ public class UserDaoTest
 	log.info("DAO: " + dao + " we have product DAO " + productDao);
 	Product product = makeProduct();
 	product.setUser(user);
+	Vendor vendor = new Vendor();
+	vendor.setVen_name("Surf");
+	product.setVendor(vendor);
 	ArrayList<Product> products = new ArrayList<Product>();
+	ArrayList<Vendor> vendors = new ArrayList<Vendor>();
+	vendors.add(vendor);
+	vendor.setUser(user);
 	products.add(product);
 	user.setProducts(products);
+	user.setVendors(vendors);
 	dao.makePersistent(user);
 	log.info(user.getProfile() + "  " + profile.getUser());
 
