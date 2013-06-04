@@ -18,6 +18,7 @@ import static org.mockito.Mockito.*;
 
 import com.akhi.store.dao.UserDao;
 import com.akhi.store.general.User;
+import com.akhi.store.product.Product;
 import com.akhi.store.service.UserServiceImplDao;
 
 /*-----------------------------------------------------------------------*//**
@@ -62,7 +63,7 @@ public class UserDaoMock
 	User user = new User();
 	when(service.addUser(user)).thenReturn(user);
 	assertEquals(user, service.addUser(user));
-	verify(dao,times(1)).makePersistent(user);
+	verify(dao, times(1)).makePersistent(user);
 	}
 
     }

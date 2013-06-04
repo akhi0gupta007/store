@@ -24,6 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.validator.Email;
 
+import com.akhi.store.listener.LastModifiable;
 import com.akhi.store.product.Product;
 import com.akhi.store.product.Vendor;
 
@@ -33,144 +34,177 @@ import com.akhi.store.product.Vendor;
  */
 @Entity(name = "user")
 @XmlRootElement
-public class User {
+public class User implements LastModifiable
+    {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long		id;
 
-	@Column(nullable = false, unique = true)
-	private String userId;
+    @Column(nullable = false, unique = true)
+    private String	      userId;
 
-	@Column(nullable = false)
-	private String password;
+    @Column(nullable = false)
+    private String	      password;
 
-	@Column(nullable = false, unique = true)
-	@Email
-	private String emailId;
+    @Column(nullable = false, unique = true)
+    @Email
+    private String	      emailId;
 
-	@Column(name = "DATE_CREATED", insertable = false, updatable = false, columnDefinition = "timestamp default current_timestamp")
-	@org.hibernate.annotations.Generated(value = GenerationTime.INSERT)
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dateCreated;
+    @Column(name = "DATE_CREATED", insertable = false, updatable = false, columnDefinition = "timestamp default current_timestamp")
+    @org.hibernate.annotations.Generated(value = GenerationTime.INSERT)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date		dateCreated;
 
-	@Column(nullable = true)
-	private String aboutUs;
+    @Column(nullable = true)
+    private String	      aboutUs;
 
-	@Column(nullable = true)
-	private String domain;
+    @Column(nullable = true)
+    private String	      domain;
 
-	@OneToOne(cascade = CascadeType.ALL, optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(name = "PROFILE_ID")
-	private Profile profile;
-	
-	@OneToMany(cascade=CascadeType.ALL,mappedBy="user")
-	private Collection<Product> products = new ArrayList<Product>();
-	
-	@OneToMany(cascade=CascadeType.ALL,mappedBy="user")
-	private Collection<Vendor> vendors = new ArrayList<Vendor>();
+    @OneToOne(cascade = CascadeType.ALL, optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "PROFILE_ID")
+    private Profile	     profile;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Collection<Product> products = new ArrayList<Product>();
 
-	/**
-	 * @return Returns the vendors.
-	 */
-	public Collection<Vendor> getVendors()
-	    {
-	    return vendors;
-	    }
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Collection<Vendor>  vendors  = new ArrayList<Vendor>();
 
-	/**
-	 * @param vendors The vendors to set.
-	 */
-	public void setVendors( Collection<Vendor> vendors )
-	    {
-	    this.vendors = vendors;
-	    }
+    @Column(nullable = true)
+    private Date		lastUpdated;
 
-	public String getUserId() {
-		return userId;
+    /**
+     * @return Returns the vendors.
+     */
+    public Collection<Vendor> getVendors()
+	{
+	return vendors;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+    /**
+     * @param vendors The vendors to set.
+     */
+    public void setVendors( Collection<Vendor> vendors )
+	{
+	this.vendors = vendors;
 	}
 
-	public String getPassword() {
-		return password;
+    public String getUserId()
+	{
+	return userId;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+    public void setUserId( String userId )
+	{
+	this.userId = userId;
 	}
 
-	public String getEmailId() {
-		return emailId;
+    public String getPassword()
+	{
+	return password;
 	}
 
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
+    public void setPassword( String password )
+	{
+	this.password = password;
 	}
 
-	public Date getDateCreated() {
-		return dateCreated;
+    public String getEmailId()
+	{
+	return emailId;
 	}
 
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
+    public void setEmailId( String emailId )
+	{
+	this.emailId = emailId;
 	}
 
-	public String getAboutUs() {
-		return aboutUs;
+    public Date getDateCreated()
+	{
+	return dateCreated;
 	}
 
-	public void setAboutUs(String aboutUs) {
-		this.aboutUs = aboutUs;
+    public void setDateCreated( Date dateCreated )
+	{
+	this.dateCreated = dateCreated;
 	}
 
-	public String getDomain() {
-		return domain;
+    public String getAboutUs()
+	{
+	return aboutUs;
 	}
 
-	public void setDomain(String domain) {
-		this.domain = domain;
+    public void setAboutUs( String aboutUs )
+	{
+	this.aboutUs = aboutUs;
 	}
 
-	public Profile getProfile() {
-		return profile;
+    public String getDomain()
+	{
+	return domain;
 	}
 
-	public void setProfile(Profile profile) {
-		this.profile = profile;
+    public void setDomain( String domain )
+	{
+	this.domain = domain;
 	}
 
-	/**
-	 * @return Returns the id.
-	 */
-	public long getId() {
-		return id;
+    public Profile getProfile()
+	{
+	return profile;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", userId=" + userId + ", password="
-				+ password + ", emailId=" + emailId + ", dateCreated="
-				+ dateCreated + ", aboutUs=" + aboutUs + ", domain=" + domain
-				+ ", profile=" + profile + "]";
+    public void setProfile( Profile profile )
+	{
+	this.profile = profile;
 	}
 
-	public Collection<Product> getProducts()
-	    {
-		return products;
-	    }
+    /**
+     * @return Returns the id.
+     */
+    public long getId()
+	{
+	return id;
+	}
 
-	public void setProducts( Collection<Product> products )
-	    {
-		this.products = products;
-	    }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString()
+	{
+	return "User [id=" + id + ", userId=" + userId + ", password=" + password + ", emailId=" + emailId + ", dateCreated=" + dateCreated + ", aboutUs=" + aboutUs + ", domain=" + domain + ", profile=" + profile + "]";
+	}
 
-}
+    public Collection<Product> getProducts()
+	{
+	return products;
+	}
+
+    public void setProducts( Collection<Product> products )
+	{
+	this.products = products;
+	}
+
+    @Override
+    public void setLastModified( Date date )
+	{
+	this.setLastUpdated(date);
+
+	}
+
+    public Date getLastUpdated()
+	{
+	return lastUpdated;
+	}
+
+    public void setLastUpdated( Date lastUpdated )
+	{
+	setLastModified(lastUpdated);
+	}
+
+    }
