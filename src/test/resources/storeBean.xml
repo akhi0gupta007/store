@@ -40,6 +40,7 @@
 				<value>com.akhi.store.general.Profile</value>
 				<value>com.akhi.store.product.Product</value>
 				<value>com.akhi.store.product.Vendor</value>
+				<value>com.akhi.store.product.Category</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -48,6 +49,13 @@
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 			</props>
+		</property>
+		<property name="eventListeners">
+			<map>
+				<entry key="save-update">
+					<ref local="hibernateListener" />
+				</entry>
+			</map>
 		</property>
 	</bean>
 
@@ -62,6 +70,9 @@
 
 	<tx:annotation-driven transaction-manager="txMgr" />
 
+	<!-- Hibernate Listener -->
+
+	<bean id="hibernateListener" class="com.akhi.store.listener.SaveUpdateListener"></bean>
 
 	<!-- <tx:advice id="txAdvice"> <tx:attributes> <tx:method name="*" propagation="REQUIRED" 
 		/> </tx:attributes> </tx:advice> <aop:config> <aop:advisor pointcut="execution(* 

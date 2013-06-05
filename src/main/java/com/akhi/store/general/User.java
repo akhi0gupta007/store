@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.validator.Email;
 
-import com.akhi.store.listener.LastModifiable;
+import com.akhi.store.product.Category;
 import com.akhi.store.product.Product;
 import com.akhi.store.product.Vendor;
 
@@ -34,7 +34,7 @@ import com.akhi.store.product.Vendor;
  */
 @Entity(name = "user")
 @XmlRootElement
-public class User implements LastModifiable
+public class User extends Props
     {
 
     @Id
@@ -72,8 +72,24 @@ public class User implements LastModifiable
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Collection<Vendor>  vendors  = new ArrayList<Vendor>();
 
-    @Column(nullable = true)
-    private Date		lastUpdated;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Collection<Category>  catogories  = new ArrayList<Category>();
+    
+    /**
+     * @return Returns the catogories.
+     */
+    public Collection<Category> getCatogories()
+        {
+        return catogories;
+        }
+
+    /**
+     * @param catogories The catogories to set.
+     */
+    public void setCatogories( Collection<Category> catogories )
+        {
+        this.catogories = catogories;
+        }
 
     /**
      * @return Returns the vendors.
@@ -190,21 +206,5 @@ public class User implements LastModifiable
 	this.products = products;
 	}
 
-    @Override
-    public void setLastModified( Date date )
-	{
-	this.setLastUpdated(date);
-
-	}
-
-    public Date getLastUpdated()
-	{
-	return lastUpdated;
-	}
-
-    public void setLastUpdated( Date lastUpdated )
-	{
-	setLastModified(lastUpdated);
-	}
 
     }

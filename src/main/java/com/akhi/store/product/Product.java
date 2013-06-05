@@ -4,22 +4,26 @@
 package com.akhi.store.product;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenerationTime;
 
+import com.akhi.store.general.Props;
 import com.akhi.store.general.User;
 
 /**
@@ -27,7 +31,7 @@ import com.akhi.store.general.User;
  * 
  */
 @Entity(name = "product")
-public class Product
+public class Product extends Props
     {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -87,7 +91,12 @@ public class Product
     @ManyToOne(optional = false)
     @JoinColumn(name = "USER_ID", nullable = false)
     private User    user;
+    
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name="CAT_PRODUCT")
+    private Set<Category> categories = new HashSet<Category>();
 
+       
     /*    @Column(nullable = true)
         private Variants     variants;
 
@@ -283,6 +292,8 @@ public class Product
 	{
 	this.dateCreated = dateCreated;
 	}
+ 
+   
 
     /*    public Variants getVariants()
     	{
