@@ -26,6 +26,7 @@ import org.hibernate.validator.Email;
 
 import com.akhi.store.product.Category;
 import com.akhi.store.product.Product;
+import com.akhi.store.product.Tag;
 import com.akhi.store.product.Vendor;
 
 /**
@@ -75,6 +76,24 @@ public class User extends Props
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Collection<Category>  catogories  = new ArrayList<Category>();
     
+    private Collection<Tag> tags = new ArrayList<Tag>();
+    
+    /**
+     * @return Returns the tags.
+     */
+    public Collection<Tag> getTags()
+        {
+        return tags;
+        }
+
+    /**
+     * @param tags The tags to set.
+     */
+    public void setTags( Collection<Tag> tags )
+        {
+        this.tags = tags;
+        }
+
     /**
      * @return Returns the catogories.
      */

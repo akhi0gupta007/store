@@ -96,12 +96,31 @@ public class Product extends Props
     @JoinTable(name="CAT_PRODUCT")
     private Set<Category> categories = new HashSet<Category>();
 
+    
+    @ManyToMany(fetch = FetchType.EAGER,mappedBy="products")
+    private Set<Tag> tags = new HashSet<Tag>();
        
     /*    @Column(nullable = true)
         private Variants     variants;
 
         @Column(nullable = true)
         private ProTemplates proTemplates;*/
+
+    /**
+     * @return Returns the categories.
+     */
+    public Set<Category> getCategories()
+        {
+        return categories;
+        }
+
+    /**
+     * @param categories The categories to set.
+     */
+    public void setCategories( Set<Category> categories )
+        {
+        this.categories = categories;
+        }
 
     /**
      * @return Returns the user.

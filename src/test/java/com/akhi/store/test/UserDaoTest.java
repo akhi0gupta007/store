@@ -27,7 +27,7 @@ import com.akhi.store.product.Vendor;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations =
     { "classpath:storeBean.xml" })
-@TransactionConfiguration(transactionManager = "txMgr", defaultRollback = true)
+@TransactionConfiguration(transactionManager = "txMgr", defaultRollback = false)
 @TestExecutionListeners(
     { DependencyInjectionTestExecutionListener.class, TransactionalTestExecutionListener.class })
 public class UserDaoTest

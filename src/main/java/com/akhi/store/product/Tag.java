@@ -1,6 +1,6 @@
 /**---------------------------------------------------------------------*
- * filename     : Category.java
- * date         : Jun 5, 2013
+ * filename     : Tag.java
+ * date         : Jun 6, 2013
  * Author       : akhilesh
  *
  * Changes      : See javadoc object description
@@ -13,15 +13,15 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 
 import com.akhi.store.general.Props;
-import com.akhi.store.general.User;
 
 /*-----------------------------------------------------------------------*//**
 *
@@ -32,39 +32,29 @@ import com.akhi.store.general.User;
 * <PRE>
 *     Date        | User  | Description
 *     ------------------------------------------------------------
-*     Jun 5, 2013 | akhilesh   | Original
+*     Jun 6, 2013 | akhilesh   | Original
 * </PRE>
 *
 * @since       JDK1.4.2_07
 *
 */
 /*-----------------------------------------------------------------------*/
-@Entity(name = "catogory")
-public class Category extends Props
+
+@Entity(name = "tag")
+public class Tag extends Props
     {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long		id;
     
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String name;
-    
-    @Column(nullable=true)
-    private String description;
-    
-    @ManyToOne(optional = false)
-    @JoinColumn(nullable=false)
-    private User user;
-    
-    @ManyToMany(mappedBy="categories")
-    private Set<Product> products = new HashSet<Product>();
 
-    public Category(String name, User user)
-	{
-	super();
-	this.name = name;
-	this.user = user;
-	}
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "TAG_PRODUCT", joinColumns =
+	{ @JoinColumn(nullable = false, name = "TAG_ID") }, inverseJoinColumns =
+	{ @JoinColumn(nullable = false, name = "PRODUCT_ID") })
+    Set<Product>   products = new HashSet<Product>();
 
     /**
      * @return Returns the name.
@@ -83,38 +73,6 @@ public class Category extends Props
         }
 
     /**
-     * @return Returns the description.
-     */
-    public String getDescription()
-        {
-        return description;
-        }
-
-    /**
-     * @param description The description to set.
-     */
-    public void setDescription( String description )
-        {
-        this.description = description;
-        }
-
-    /**
-     * @return Returns the user.
-     */
-    public User getUser()
-        {
-        return user;
-        }
-
-    /**
-     * @param user The user to set.
-     */
-    public void setUser( User user )
-        {
-        this.user = user;
-        }
-
-    /**
      * @return Returns the products.
      */
     public Set<Product> getProducts()
@@ -129,15 +87,6 @@ public class Category extends Props
         {
         this.products = products;
         }
-
-    /**
-     * @return Returns the id.
-     */
-    public long getId()
-        {
-        return id;
-        }
     
-
-
+    
     }

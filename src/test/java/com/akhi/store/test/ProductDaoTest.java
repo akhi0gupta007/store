@@ -10,7 +10,9 @@ package com.akhi.store.test;
 
 import static org.junit.Assert.*;
 
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.junit.After;
@@ -29,6 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.akhi.store.dao.ProductDao;
 import com.akhi.store.dao.UserDao;
 import com.akhi.store.general.User;
+import com.akhi.store.product.Category;
 import com.akhi.store.product.Product;
 
 /*-----------------------------------------------------------------------*//**
@@ -65,9 +68,19 @@ public class ProductDaoTest
     @Transactional
     public final void testMakePersistent()
 	{
-	User user = dao.findById(1l, true);
+	User user = dao.findById(2l, true);
 	Product product = makeProduct();
 	product.setUser(user);
+	Category cat = new Category("pc",user);
+	Set<Product> products = new HashSet<Product>();
+	products.add(product);
+	cat.setProducts(products);
+	Set<Category> cats = new HashSet<Category>();
+	cats.add(cat);
+	user.setCatogories(cats);
+	product.setCategories(cats);
+	
+	assertNotNull(dao.makePersistent(user));
 	assertNotNull(productDao.makePersistent(product));
 
 	}
@@ -79,7 +92,7 @@ public class ProductDaoTest
 	product.setTitle("RIN");
 	product.setSel_price(123.0);
 	Random random = new Random();
-	product.setPro_id(String.valueOf(random.nextLong()));
+	product.setPro_id(String.valueOf(Math.abs(random.nextInt())));
 	return product;
 
 	}
