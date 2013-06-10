@@ -10,6 +10,8 @@ package com.akhi.store.test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -33,6 +35,7 @@ import com.akhi.store.dao.UserDao;
 import com.akhi.store.general.User;
 import com.akhi.store.product.Category;
 import com.akhi.store.product.Product;
+import com.akhi.store.product.Tag;
 
 /*-----------------------------------------------------------------------*//**
 *
@@ -68,18 +71,20 @@ public class ProductDaoTest
     @Transactional
     public final void testMakePersistent()
 	{
-	User user = dao.findById(2l, true);
+	User user = dao.findById(1l, true);
 	Product product = makeProduct();
 	product.setUser(user);
-	Category cat = new Category("pc",user);
+	Category cat = new Category("pc", user);
 	Set<Product> products = new HashSet<Product>();
 	products.add(product);
 	cat.setProducts(products);
 	Set<Category> cats = new HashSet<Category>();
 	cats.add(cat);
+	
 	user.setCatogories(cats);
 	product.setCategories(cats);
-	
+	Collection<Tag> tags  = getTags(user);
+	user.setTags(tags);
 	assertNotNull(dao.makePersistent(user));
 	assertNotNull(productDao.makePersistent(product));
 
@@ -95,6 +100,14 @@ public class ProductDaoTest
 	product.setPro_id(String.valueOf(Math.abs(random.nextInt())));
 	return product;
 
+	}
+
+    public Collection<Tag> getTags( User user )
+	{
+	Collection<Tag> tags = new ArrayList<Tag>();
+	tags.add(new Tag("electronics", user));
+	tags.add(new Tag("laptop", user));
+	return tags;
 	}
 
     }

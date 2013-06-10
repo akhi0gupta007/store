@@ -40,75 +40,76 @@ public class User extends Props
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long		id;
+    private long		 id;
 
     @Column(nullable = false, unique = true)
-    private String	      userId;
+    private String	       userId;
 
     @Column(nullable = false)
-    private String	      password;
+    private String	       password;
 
     @Column(nullable = false, unique = true)
     @Email
-    private String	      emailId;
+    private String	       emailId;
 
     @Column(name = "DATE_CREATED", insertable = false, updatable = false, columnDefinition = "timestamp default current_timestamp")
     @org.hibernate.annotations.Generated(value = GenerationTime.INSERT)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date		dateCreated;
+    private Date		 dateCreated;
 
     @Column(nullable = true)
-    private String	      aboutUs;
+    private String	       aboutUs;
 
     @Column(nullable = true)
-    private String	      domain;
+    private String	       domain;
 
     @OneToOne(cascade = CascadeType.ALL, optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "PROFILE_ID")
-    private Profile	     profile;
+    private Profile	      profile;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Collection<Product> products = new ArrayList<Product>();
+    private Collection<Product>  products   = new ArrayList<Product>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Collection<Vendor>  vendors  = new ArrayList<Vendor>();
+    private Collection<Vendor>   vendors    = new ArrayList<Vendor>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Collection<Category>  catogories  = new ArrayList<Category>();
-    
-    private Collection<Tag> tags = new ArrayList<Tag>();
-    
+    private Collection<Category> catogories = new ArrayList<Category>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Collection<Tag>      tags       = new ArrayList<Tag>();
+
     /**
      * @return Returns the tags.
      */
     public Collection<Tag> getTags()
-        {
-        return tags;
-        }
+	{
+	return tags;
+	}
 
     /**
      * @param tags The tags to set.
      */
     public void setTags( Collection<Tag> tags )
-        {
-        this.tags = tags;
-        }
+	{
+	this.tags = tags;
+	}
 
     /**
      * @return Returns the catogories.
      */
     public Collection<Category> getCatogories()
-        {
-        return catogories;
-        }
+	{
+	return catogories;
+	}
 
     /**
      * @param catogories The catogories to set.
      */
     public void setCatogories( Collection<Category> catogories )
-        {
-        this.catogories = catogories;
-        }
+	{
+	this.catogories = catogories;
+	}
 
     /**
      * @return Returns the vendors.
@@ -224,6 +225,5 @@ public class User extends Props
 	{
 	this.products = products;
 	}
-
 
     }

@@ -20,8 +20,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import com.akhi.store.general.Props;
+import com.akhi.store.general.User;
 
 /*-----------------------------------------------------------------------*//**
 *
@@ -49,12 +51,40 @@ public class Tag extends Props
     
     @Column(nullable = false)
     private String name;
+    
+    @ManyToOne(optional=false)
+    @JoinColumn(name="USER_ID",nullable=false)
+    private User user;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "TAG_PRODUCT", joinColumns =
 	{ @JoinColumn(nullable = false, name = "TAG_ID") }, inverseJoinColumns =
 	{ @JoinColumn(nullable = false, name = "PRODUCT_ID") })
     Set<Product>   products = new HashSet<Product>();
+    
+    
+    public Tag(String name, User user)
+	{
+	super();
+	this.name = name;
+	this.user = user;
+	}
+
+    /**
+     * @return Returns the user.
+     */
+    public User getUser()
+        {
+        return user;
+        }
+
+    /**
+     * @param user The user to set.
+     */
+    public void setUser( User user )
+        {
+        this.user = user;
+        }
 
     /**
      * @return Returns the name.
