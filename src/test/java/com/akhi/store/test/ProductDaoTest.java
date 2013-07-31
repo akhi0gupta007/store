@@ -85,6 +85,7 @@ public class ProductDaoTest
 	product.setCategories(cats);
 	Collection<Tag> tags  = getTags(user);
 	user.setTags(tags);
+	product.setTags((Set<Tag>) tags);
 	assertNotNull(dao.makePersistent(user));
 	assertNotNull(productDao.makePersistent(product));
 
@@ -104,7 +105,7 @@ public class ProductDaoTest
 
     public Collection<Tag> getTags( User user )
 	{
-	Collection<Tag> tags = new ArrayList<Tag>();
+	Collection<Tag> tags = new HashSet<Tag>();
 	tags.add(new Tag("electronics", user));
 	tags.add(new Tag("laptop", user));
 	return tags;
