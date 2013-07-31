@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -97,7 +98,7 @@ public class Product extends Props
     private Set<Category> categories = new HashSet<Category>();
 
     
-    @ManyToMany(fetch = FetchType.EAGER,mappedBy="products")
+    @ManyToMany(fetch = FetchType.EAGER,mappedBy="products",cascade=CascadeType.ALL)
     private Set<Tag> tags = new HashSet<Tag>();
        
     /*    @Column(nullable = true)
@@ -112,6 +113,22 @@ public class Product extends Props
     public Set<Category> getCategories()
         {
         return categories;
+        }
+
+    /**
+     * @return Returns the tags.
+     */
+    public Set<Tag> getTags()
+        {
+        return tags;
+        }
+
+    /**
+     * @param tags The tags to set.
+     */
+    public void setTags( Set<Tag> tags )
+        {
+        this.tags = tags;
         }
 
     /**

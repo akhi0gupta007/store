@@ -6,6 +6,7 @@ package com.akhi.store.general;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -77,7 +78,7 @@ public class User extends Props
     private Collection<Category> catogories = new ArrayList<Category>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Collection<Tag>      tags       = new ArrayList<Tag>();
+    private Collection<Tag>      tags       = new HashSet<Tag>();
 
     /**
      * @return Returns the tags.

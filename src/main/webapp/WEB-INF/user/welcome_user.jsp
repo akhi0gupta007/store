@@ -96,7 +96,7 @@ th.specalt {
 <body>
 	<h1>DashBoard</h1>
 	Welcome, what else I can say, huh
-	<c:out value="Hello Tags"></c:out>
+	<c:out value="Hello Tags"></c:out></br>
 
 
 
