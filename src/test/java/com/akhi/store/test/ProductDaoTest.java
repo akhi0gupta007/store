@@ -10,15 +10,11 @@ package com.akhi.store.test;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,12 +76,18 @@ public class ProductDaoTest
 	cat.setProducts(products);
 	Set<Category> cats = new HashSet<Category>();
 	cats.add(cat);
-	
+
 	user.setCatogories(cats);
 	product.setCategories(cats);
-	Collection<Tag> tags  = getTags(user);
+	Collection<Tag> tags = getTags(user);
 	user.setTags(tags);
 	product.setTags((Set<Tag>) tags);
+	for (Tag tag : tags)
+	    {
+	    HashSet<Product> set = new HashSet<Product>();
+	    set.add(product);
+	    tag.setProducts(set);
+	    }
 	assertNotNull(dao.makePersistent(user));
 	assertNotNull(productDao.makePersistent(product));
 
