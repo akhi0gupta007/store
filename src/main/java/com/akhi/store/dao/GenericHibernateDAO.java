@@ -50,7 +50,7 @@ public abstract class GenericHibernateDAO<T, ID extends Serializable>
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	protected static Logger log = Logger.getLogger(UserDaoImpl.class);
+	protected static Logger log = Logger.getLogger(GenericHibernateDAO.class);
 
 	@SuppressWarnings("unchecked")
 	public GenericHibernateDAO() {

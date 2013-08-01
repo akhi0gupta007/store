@@ -57,6 +57,10 @@
 			<list>
 				<value>com.akhi.store.general.User</value>
 				<value>com.akhi.store.general.Profile</value>
+				<value>com.akhi.store.product.Product</value>
+				<value>com.akhi.store.product.Vendor</value>
+				<value>com.akhi.store.product.Category</value>
+				<value>com.akhi.store.product.Tag</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -65,6 +69,13 @@
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 			</props>
+		</property>
+		<property name="eventListeners">
+			<map>
+				<entry key="save-update">
+					<ref local="hibernateListener" />
+				</entry>
+			</map>
 		</property>
 	</bean>
 	<bean
@@ -78,7 +89,7 @@
 
 	<tx:annotation-driven transaction-manager="txMgr" />
 
-
+	<bean id="hibernateListener" class="com.akhi.store.listener.SaveUpdateListener"></bean>
 	<!-- Tiles Related Configurations -->
 
 	<bean id="viewResolver"
@@ -107,5 +118,8 @@
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename" value="Customer" />
 	</bean>
+	<!-- Hibernate Listener -->
+
+	
 
 </beans>
