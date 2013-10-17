@@ -1,4 +1,4 @@
 store
 =====
 
-Creates the online stores for merchants
+Creates the online stores for merchants.
