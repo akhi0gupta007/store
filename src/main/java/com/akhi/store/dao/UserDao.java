@@ -8,6 +8,7 @@
  */
 package com.akhi.store.dao;
 
+import com.akhi.store.general.Profile;
 import com.akhi.store.general.User;
 
 
@@ -31,4 +32,6 @@ import com.akhi.store.general.User;
 public interface UserDao extends GenericDAO<User, Long> 
     {
     User findByIdAndPassword(String id,String password);
+
+    void deleteProfile( Profile entity );
     }

@@ -16,6 +16,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.akhi.store.controller.HomeController;
+import com.akhi.store.general.Profile;
 import com.akhi.store.general.User;
 
 /*-----------------------------------------------------------------------*//**
@@ -49,7 +50,7 @@ public class UserDaoImpl extends GenericHibernateDAO<User, Long>
     @Override
     public User findByIdAndPassword( String id, String password )
 	{
-	log.info(">>>>>>>UserDaoImpl: Testing against user/password : "+getSession());
+	log.info(">>>>>>>UserDaoImpl: Testing against user/password : " + getSession());
 	Criteria crit = getSession().createCriteria(User.class).add(Restrictions.eq("userId",
 										    id)).add(Restrictions.eq("password",
 													     password)).setMaxResults(1);
@@ -76,5 +77,9 @@ public class UserDaoImpl extends GenericHibernateDAO<User, Long>
 	{
 	return "UserDaoImpl [session=" + session + "]";
 	}
-
+    @Override
+    public void deleteProfile( Profile entity )
+	{
+	getSession().delete(entity);
+	}
     }

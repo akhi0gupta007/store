@@ -92,7 +92,7 @@ function makeVendorBox(id,attr){
 
         }
     })
-        .error(function() { alert("error,login please"); })
+        .error(function() { console.log("error,login please"); })
         .complete(function() { });
 
 }
@@ -119,7 +119,7 @@ function makeComboBox(id,what,attr)
 
         }
     })
-        .error(function() { alert("error,login please"); })
+        .error(function() { console.log("error,login please"); })
         .complete(function() { });
 
 
@@ -146,7 +146,7 @@ function makeTypeBox(id,attr)
 
         }
     })
-        .error(function() { alert("error,login please"); })
+        .error(function() { console.log("error,login please"); })
         .complete(function() { });
 
 

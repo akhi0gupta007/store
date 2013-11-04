@@ -89,8 +89,8 @@ public class Product extends Props
     @Temporal(TemporalType.TIMESTAMP)
     private Date    dateCreated;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "USER_ID", nullable = false)
+    @ManyToOne(optional = false,cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_products", nullable = false)
     private User    user;
     
     @ManyToMany(fetch = FetchType.LAZY)
@@ -98,7 +98,7 @@ public class Product extends Props
     private Set<Category> categories = new HashSet<Category>();
 
     
-    @ManyToMany(fetch = FetchType.EAGER,mappedBy="products",cascade=CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER,mappedBy="products",cascade=CascadeType.PERSIST)
     private Set<Tag> tags = new HashSet<Tag>();
        
     /*    @Column(nullable = true)

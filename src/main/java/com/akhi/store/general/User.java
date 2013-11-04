@@ -22,6 +22,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.validator.Email;
 
@@ -66,16 +67,17 @@ public class User extends Props
 
     @OneToOne(cascade = CascadeType.ALL, optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "PROFILE_ID")
+    @Cascade({org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
     private Profile	      profile;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Collection<Product>  products   = new ArrayList<Product>();
+    private Collection<Product>  products   = new HashSet<Product>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Collection<Vendor>   vendors    = new ArrayList<Vendor>();
+    private Collection<Vendor>   vendors    = new HashSet<Vendor>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Collection<Category> catogories = new ArrayList<Category>();
+    private Collection<Category> catogories = new HashSet<Category>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Collection<Tag>      tags       = new HashSet<Tag>();

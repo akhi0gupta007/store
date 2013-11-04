@@ -1,11 +1,11 @@
 package com.akhi.store.test;
 
-import java.util.ArrayList;
-
+import java.util.Collection;
+import java.util.HashSet;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -22,6 +22,7 @@ import com.akhi.store.dao.UserDao;
 import com.akhi.store.general.Profile;
 import com.akhi.store.general.User;
 import com.akhi.store.product.Product;
+import com.akhi.store.product.Tag;
 import com.akhi.store.product.Vendor;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -65,28 +66,45 @@ public class UserDaoTest
 	Vendor vendor = new Vendor();
 	vendor.setVen_name("Surf");
 	product.setVendor(vendor);
-	ArrayList<Product> products = new ArrayList<Product>();
-	ArrayList<Vendor> vendors = new ArrayList<Vendor>();
+	HashSet<Product> products = new HashSet<Product>();
+	HashSet<Vendor> vendors = new HashSet<Vendor>();
 	vendors.add(vendor);
 	vendor.setUser(user);
 	products.add(product);
 	user.setProducts(products);
 	user.setVendors(vendors);
+	Tag tag = new Tag("soap", user);
+	Collection<Tag> tags = new HashSet<Tag>();
+	tags.add(tag);
+	user.setTags(tags);
+	tag.setProducts(new HashSet<Product>(products));
+	//productDao.makePersistent(product);
 	dao.makePersistent(user);
-	log.info(user.getProfile() + "  " + profile.getUser());
-
-	log.info("Searching by User and password");
-	assertEquals("Found the same object",
-		     user,
-		     dao.findByIdAndPassword("akhi", "password"));
-	profile.setCountry("Pakistan");
-
-	user.setProfile(profile);
+	user.setProfile(null);
 	dao.makePersistent(user);
+	//dao.deleteProfile(profile);
+	//	dao.makePersistent(user);
+	//	log.info(user.getProfile() + "  " + profile.getUser());
+	//
+	//	log.info("Searching by User and password");
+	//	assertEquals("Found the same object",
+	//		     user,
+	//		     dao.findByIdAndPassword("akhi", "password"));
+	//	profile.setCountry("Pakistan");
+	//
+	//	user.setProfile(profile);
+	//dao.makePersistent(user);
 	// dao.makeTransient(user);
 
-	User user2 = dao.findByIdAndPassword("akhi", "password");
+	/*User user2 = dao.findByIdAndPassword("akhi", "password");
 	System.out.println(user2);
+	
+	log.info("User's Products : "+user2.getProducts());
+	log.info("Product's User ref' "+product.getUser());
+	Product product2 = productDao.findById(1L, true);
+	
+	log.info("New Product ::::::::::::::::::::::::: "+ product2);
+	log.info("New Product ::::::::::::::::::::::::: "+ product2.getUser());*/
 
 	}
 

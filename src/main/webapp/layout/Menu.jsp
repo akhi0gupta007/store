@@ -2,7 +2,7 @@
 
 
 <a href="/">DashBoard</a><br/>
-<a href="/">Admin Login</a><br/>
+<a href="/store/addProduct">Add Product</a><br/>
 <a href="/">Help and Support</a><br/>
 
 
