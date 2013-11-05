@@ -3,6 +3,8 @@ package com.akhi.store.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -41,11 +43,12 @@ public class HomeController
     private UserValidator		  validator;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String home( ModelMap model )
+    public String home( ModelMap model ,HttpSession session)
 	{
 	log.info("HomeController home");
 	User user = new User();
 	model.addAttribute("customer", user);
+	session.setAttribute("customer", user);
 	return "customer";
 	}
 
