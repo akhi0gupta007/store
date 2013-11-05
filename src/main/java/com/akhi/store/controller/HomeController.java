@@ -1,8 +1,5 @@
 package com.akhi.store.controller;
 
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +45,7 @@ public class HomeController
 	log.info("HomeController home");
 	User user = new User();
 	model.addAttribute("customer", user);
-	session.setAttribute("customer", user);
+	//session.setAttribute("customer", user);
 	return "customer";
 	}
 
