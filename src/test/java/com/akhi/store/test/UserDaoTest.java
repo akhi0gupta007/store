@@ -2,10 +2,11 @@ package com.akhi.store.test;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
+
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Test;
-
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -21,6 +22,7 @@ import com.akhi.store.dao.ProductDao;
 import com.akhi.store.dao.UserDao;
 import com.akhi.store.general.Profile;
 import com.akhi.store.general.User;
+import com.akhi.store.product.Category;
 import com.akhi.store.product.Product;
 import com.akhi.store.product.Tag;
 import com.akhi.store.product.Vendor;
@@ -62,6 +64,9 @@ public class UserDaoTest
 	user.setProfile(profile);
 	log.info("DAO: " + dao + " we have product DAO " + productDao);
 	Product product = makeProduct();
+	Category cat  = new Category();
+	cat.setUser(user);
+	cat.setName("Dish Washer");
 	product.setUser(user);
 	Vendor vendor = new Vendor();
 	vendor.setVen_name("Surf");
@@ -74,37 +79,14 @@ public class UserDaoTest
 	user.setProducts(products);
 	user.setVendors(vendors);
 	Tag tag = new Tag("soap", user);
-	Collection<Tag> tags = new HashSet<Tag>();
+	Set<Tag> tags = new HashSet<Tag>();
 	tags.add(tag);
 	user.setTags(tags);
 	tag.setProducts(new HashSet<Product>(products));
 	//productDao.makePersistent(product);
 	dao.makePersistent(user);
-	user.setProfile(null);
-	dao.makePersistent(user);
-	//dao.deleteProfile(profile);
-	//	dao.makePersistent(user);
-	//	log.info(user.getProfile() + "  " + profile.getUser());
-	//
-	//	log.info("Searching by User and password");
-	//	assertEquals("Found the same object",
-	//		     user,
-	//		     dao.findByIdAndPassword("akhi", "password"));
-	//	profile.setCountry("Pakistan");
-	//
-	//	user.setProfile(profile);
-	//dao.makePersistent(user);
-	// dao.makeTransient(user);
+	//dao.findById(1L);
 
-	/*User user2 = dao.findByIdAndPassword("akhi", "password");
-	System.out.println(user2);
-	
-	log.info("User's Products : "+user2.getProducts());
-	log.info("Product's User ref' "+product.getUser());
-	Product product2 = productDao.findById(1L, true);
-	
-	log.info("New Product ::::::::::::::::::::::::: "+ product2);
-	log.info("New Product ::::::::::::::::::::::::: "+ product2.getUser());*/
 
 	}
 

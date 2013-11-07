@@ -8,7 +8,12 @@
  */
 package com.akhi.store.dao;
 
+import java.util.List;
+
+import com.akhi.store.product.Category;
 import com.akhi.store.product.Product;
+import com.akhi.store.product.Tag;
+import com.akhi.store.product.Vendor;
 
 /*-----------------------------------------------------------------------*//**
 *
@@ -29,6 +34,13 @@ import com.akhi.store.product.Product;
 
 public interface ProductDao extends GenericDAO<Product, Long>
     {
+    List<Vendor> getVendors( Long id );
+
+    List<Tag> getTags( Long id );
+
+    List<Category> getCatgories( Long id );
+
+    List<Product> getProducts( Long id );
     
 
     }

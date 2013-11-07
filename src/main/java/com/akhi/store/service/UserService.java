@@ -34,6 +34,6 @@ public interface UserService
     User addUser(User user);
     void removeUser(User user);
     User autheticate(String userId,String password);
-    
+    User findById(Long id,boolean lock);
     
     }

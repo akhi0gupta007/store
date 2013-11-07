@@ -328,6 +328,12 @@ public class Product extends Props
 	{
 	this.dateCreated = dateCreated;
 	}
+
+    public Long getId()
+	{
+	// TODO Auto-generated method stub
+	return id;
+	}
  
    
 

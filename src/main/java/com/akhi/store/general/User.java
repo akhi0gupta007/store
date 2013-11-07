@@ -4,9 +4,10 @@
 package com.akhi.store.general;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Set;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -65,27 +66,27 @@ public class User extends Props
     @Column(nullable = true)
     private String	       domain;
 
-    @OneToOne(cascade = CascadeType.ALL, optional = true, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, optional = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "PROFILE_ID")
     @Cascade({org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
     private Profile	      profile;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-    private Collection<Product>  products   = new HashSet<Product>();
+    private Set<Product>  products   = new HashSet<Product>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-    private Collection<Vendor>   vendors    = new HashSet<Vendor>();
+    private Set<Vendor>   vendors    = new HashSet<Vendor>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-    private Collection<Category> catogories = new HashSet<Category>();
+    private Set<Category> catogories = new HashSet<Category>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-    private Collection<Tag>      tags       = new HashSet<Tag>();
+    private Set<Tag>      tags       = new HashSet<Tag>();
 
     /**
      * @return Returns the tags.
      */
-    public Collection<Tag> getTags()
+    public Set<Tag> getTags()
 	{
 	return tags;
 	}
@@ -93,7 +94,7 @@ public class User extends Props
     /**
      * @param tags The tags to set.
      */
-    public void setTags( Collection<Tag> tags )
+    public void setTags( Set<Tag> tags )
 	{
 	this.tags = tags;
 	}
@@ -101,7 +102,7 @@ public class User extends Props
     /**
      * @return Returns the catogories.
      */
-    public Collection<Category> getCatogories()
+    public Set<Category> getCatogories()
 	{
 	return catogories;
 	}
@@ -109,7 +110,7 @@ public class User extends Props
     /**
      * @param catogories The catogories to set.
      */
-    public void setCatogories( Collection<Category> catogories )
+    public void setCatogories( Set<Category> catogories )
 	{
 	this.catogories = catogories;
 	}
@@ -117,7 +118,7 @@ public class User extends Props
     /**
      * @return Returns the vendors.
      */
-    public Collection<Vendor> getVendors()
+    public Set<Vendor> getVendors()
 	{
 	return vendors;
 	}
@@ -125,7 +126,7 @@ public class User extends Props
     /**
      * @param vendors The vendors to set.
      */
-    public void setVendors( Collection<Vendor> vendors )
+    public void setVendors( Set<Vendor> vendors )
 	{
 	this.vendors = vendors;
 	}
@@ -219,12 +220,12 @@ public class User extends Props
 	return "User [id=" + id + ", userId=" + userId + ", password=" + password + ", emailId=" + emailId + ", dateCreated=" + dateCreated + ", aboutUs=" + aboutUs + ", domain=" + domain + ", profile=" + profile + "]";
 	}
 
-    public Collection<Product> getProducts()
+    public Set<Product> getProducts()
 	{
 	return products;
 	}
 
-    public void setProducts( Collection<Product> products )
+    public void setProducts( Set<Product> products )
 	{
 	this.products = products;
 	}

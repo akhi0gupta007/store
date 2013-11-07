@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -77,9 +78,32 @@ public class UserDaoImpl extends GenericHibernateDAO<User, Long>
 	{
 	return "UserDaoImpl [session=" + session + "]";
 	}
+
     @Override
     public void deleteProfile( Profile entity )
 	{
 	getSession().delete(entity);
+	}
+
+    @Override
+    public User findById( Long id )
+	{
+	User user = null;
+	Query query = getSession().createQuery("from user as user inner join fetch user.products as products"+
+		" inner join fetch user.vendors as vendors"+
+		" inner join fetch user.tags as tags");
+	
+	Query query2= getSession().createQuery("from vendor where USER_ID=:id");
+	query2.setParameter("id", 1L);
+	
+	log.info("Result:Vendors :::::::::::::::::::::::::" + query2.list());
+
+	List results = query.list();
+
+	//log.info("results::::::: " + query.list());
+	user = (User) results.get(0);
+	log.info("User : " + user);
+	log.info("User vendors: " + user.getVendors().size());
+	return user;
 	}
     }

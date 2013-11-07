@@ -79,7 +79,7 @@ public class ProductDaoTest
 
 	user.setCatogories(cats);
 	product.setCategories(cats);
-	Collection<Tag> tags = getTags(user);
+	Set<Tag> tags = getTags(user);
 	user.setTags(tags);
 	product.setTags((Set<Tag>) tags);
 	for (Tag tag : tags)
@@ -105,9 +105,9 @@ public class ProductDaoTest
 
 	}
 
-    public Collection<Tag> getTags( User user )
+    public Set<Tag> getTags( User user )
 	{
-	Collection<Tag> tags = new HashSet<Tag>();
+	Set<Tag> tags = new HashSet<Tag>();
 	tags.add(new Tag("electronics", user));
 	tags.add(new Tag("laptop", user));
 	return tags;

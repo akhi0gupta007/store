@@ -34,4 +34,6 @@ public interface UserDao extends GenericDAO<User, Long>
     User findByIdAndPassword(String id,String password);
 
     void deleteProfile( Profile entity );
+    
+    User findById(Long id);
     }

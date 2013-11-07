@@ -10,10 +10,14 @@ package com.akhi.store.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.akhi.store.product.Category;
 import com.akhi.store.product.Product;
-
+import com.akhi.store.product.Tag;
+import com.akhi.store.product.Vendor;
 
 /*-----------------------------------------------------------------------*//**
 *
@@ -32,7 +36,10 @@ import com.akhi.store.product.Product;
 */
 /*-----------------------------------------------------------------------*/
 @Repository
-public class ProductDaoImpl extends GenericHibernateDAO<Product, Long> implements ProductDao
+@SuppressWarnings("unchecked")
+public class ProductDaoImpl extends GenericHibernateDAO<Product, Long>
+								      implements
+								      ProductDao
     {
 
     @Override
@@ -49,6 +56,47 @@ public class ProductDaoImpl extends GenericHibernateDAO<Product, Long> implement
     public String toString()
 	{
 	return "ProductDaoImpl [session=" + session + "]";
+	}
+
+    @Override
+    @Transactional
+    public List<Vendor> getVendors( Long id )
+	{
+
+	Query query = getSession().createQuery("from vendor where USER_ID=:id");
+	query.setParameter("id", id);
+	List<?> result = query.list();
+	return (List<Vendor>) result;
+	}
+
+    @Override
+    @Transactional
+    public List<Tag> getTags( Long id )
+	{
+	Query query = getSession().createQuery("from tag where USER_ID=:id");
+	query.setParameter("id", id);
+	List<?> result = query.list();
+	return (List<Tag>) result;
+	}
+
+    @Override
+    @Transactional
+    public List<Category> getCatgories( Long id )
+	{
+	Query query = getSession().createQuery("from catogory where USER_ID=:id");
+	query.setParameter("id", id);
+	List<?> result = query.list();
+	return (List<Category>) result;
+	}
+
+    @Override
+    @Transactional
+    public List<Product> getProducts( Long id )
+	{
+	Query query = getSession().createQuery("from product where user_products=:id");
+	query.setParameter("id", id);
+	List<?> result = query.list();
+	return (List<Product>) result;
 	}
 
     }

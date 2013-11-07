@@ -53,7 +53,7 @@ public class Category extends Props
     private String description;
     
     @ManyToOne(optional = false)
-    @JoinColumn(nullable=false)
+    @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
     
     @ManyToMany(mappedBy="categories")
@@ -64,6 +64,11 @@ public class Category extends Props
 	super();
 	this.name = name;
 	this.user = user;
+	}
+
+    public Category()
+	{
+	
 	}
 
     /**

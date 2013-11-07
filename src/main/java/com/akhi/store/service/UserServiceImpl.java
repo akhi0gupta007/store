@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+
 import com.akhi.store.general.User;
 
 /*-----------------------------------------------------------------------*//**
@@ -92,6 +93,13 @@ public class UserServiceImpl implements UserService
     public void setSessionFactory( SessionFactory sessionFactory )
 	{
 	this.sessionFactory = sessionFactory;
+	}
+
+    @Override
+    public User findById( Long id, boolean lock )
+	{
+	// TODO Auto-generated method stub
+	return null;
 	}
 
     }

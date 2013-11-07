@@ -47,22 +47,21 @@ public class Tag extends Props
     {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long		id;
-    
+    private long   id;
+
     @Column(nullable = false)
     private String name;
-    
-    @ManyToOne(optional=false)
-    @JoinColumn(name="USER_ID",nullable=false)
-    private User user;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "USER_ID", nullable = false)
+    private User   user;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "TAG_PRODUCT", joinColumns =
 	{ @JoinColumn(nullable = false, name = "TAG_ID") }, inverseJoinColumns =
 	{ @JoinColumn(nullable = false, name = "PRODUCT_ID") })
     Set<Product>   products = new HashSet<Product>();
-    
-    
+
     public Tag(String name, User user)
 	{
 	super();
@@ -70,53 +69,62 @@ public class Tag extends Props
 	this.user = user;
 	}
 
+    public Tag()
+	{
+	}
+
     /**
      * @return Returns the user.
      */
     public User getUser()
-        {
-        return user;
-        }
+	{
+	return user;
+	}
 
     /**
      * @param user The user to set.
      */
     public void setUser( User user )
-        {
-        this.user = user;
-        }
+	{
+	this.user = user;
+	}
 
     /**
      * @return Returns the name.
      */
     public String getName()
-        {
-        return name;
-        }
+	{
+	return name;
+	}
 
     /**
      * @param name The name to set.
      */
     public void setName( String name )
-        {
-        this.name = name;
-        }
+	{
+	this.name = name;
+	}
 
     /**
      * @return Returns the products.
      */
     public Set<Product> getProducts()
-        {
-        return products;
-        }
+	{
+	return products;
+	}
 
     /**
      * @param products The products to set.
      */
     public void setProducts( Set<Product> products )
-        {
-        this.products = products;
-        }
-    
-    
+	{
+	this.products = products;
+	}
+
+    public Long getId()
+	{
+	// TODO Auto-generated method stub
+	return id;
+	}
+
     }

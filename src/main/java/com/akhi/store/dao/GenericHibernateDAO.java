@@ -68,6 +68,7 @@ public abstract class GenericHibernateDAO<T, ID extends Serializable>
 
 	public T findById(Long id, boolean lock) {
 		T entity;
+		log.warn("Session here >>>>>>>>>>>>>>>>>>>>>>>"+getSession());
 		if (lock)
 			entity = (T) getSession().load(getPersistentClass(), id,
 					LockMode.UPGRADE);

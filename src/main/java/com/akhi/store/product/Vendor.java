@@ -68,6 +68,16 @@ public class Vendor
         this.user = user;
         }
 
+    public long getId()
+        {
+        return id;
+        }
+
+    public void setId( long id )
+        {
+        this.id = id;
+        }
+
     /**
      * @return Returns the description.
      */
@@ -132,5 +142,11 @@ public class Vendor
     public void setWebsite( String website )
 	{
 	this.website = website;
+	}
+
+    @Override
+    public String toString()
+	{
+	return "Vendor [id=" + id + ", ven_name=" + ven_name + ", description=" + description + ", dateCreated=" + dateCreated + ", user=" + user + ", website=" + website + ", showColl=" + showColl + "]";
 	}
     }
