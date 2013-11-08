@@ -40,12 +40,11 @@ public class HomeController
     private UserValidator		  validator;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String home( ModelMap model ,HttpSession session)
+    public String home( ModelMap model, HttpSession session )
 	{
 	log.info("HomeController home");
 	User user = new User();
 	model.addAttribute("customer", user);
-	//session.setAttribute("customer", user);
 	return "customer";
 	}
 

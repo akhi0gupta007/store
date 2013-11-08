@@ -64,9 +64,13 @@ public class UserDaoTest
 	user.setProfile(profile);
 	log.info("DAO: " + dao + " we have product DAO " + productDao);
 	Product product = makeProduct();
-	Category cat  = new Category();
+	Category cat = new Category();
 	cat.setUser(user);
 	cat.setName("Dish Washer");
+	Set<Category> catogories = new HashSet<Category>();
+	catogories.add(cat);
+	catogories.add(new Category("Clothes", user));
+	user.setCatogories(catogories);
 	product.setUser(user);
 	Vendor vendor = new Vendor();
 	vendor.setVen_name("Surf");
@@ -86,7 +90,6 @@ public class UserDaoTest
 	//productDao.makePersistent(product);
 	dao.makePersistent(user);
 	//dao.findById(1L);
-
 
 	}
 

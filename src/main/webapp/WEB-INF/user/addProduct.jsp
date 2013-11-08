@@ -1,7 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <html>
 <head>
@@ -11,10 +12,6 @@
 
 <script type="text/javascript"
 	src="<s:url value="/resources" />/js/jquery-1.7.2.min.js"></script>
-
-<script type="text/javascript"
-	src="<s:url value="/resources" />/js/script1.js"></script>
-
 
 <script type="text/javascript"
 	src="<s:url value="/resources" />/js/jquery-ui-1.8.9.custom.min.js"></script>
@@ -45,7 +42,6 @@
 								'<option value=0>--------</option>');
 
 						makeComboBox(userid, "customCollection", "sub_category");
-						makeTypeBox(userid, "protype");
 
 						$("#protype")
 								.append(
@@ -111,8 +107,9 @@ td.adjacent {
 				</div></li>
 		</ul>
 		<div style="clear: both"></div>
-		<form action="${request.contextPath}/product/added" id="proform"
-			method="post" enctype="multipart/form-data" name="proform">
+		<form action="${request.contextPath}/store/product/newProduct"
+			id="proform" method="post" enctype="multipart/form-data"
+			name="proform">
 			<!--<p><g:link action="by">Add By Template</g:link> </p>    -->
 			<table cellpadding="3">
 				<tr>
@@ -121,7 +118,9 @@ td.adjacent {
 					</label></td>
 				</tr>
 				<tr>
-					<td><input type="text" id="proname" name="title" />
+					<td><spring:bind path="product.title">
+							<input type="text" id="proname" name="title" />
+						</spring:bind>
 						<div id='titleerror' class="error_strings"></div></td>
 				</tr>
 				<tr>
@@ -130,19 +129,24 @@ td.adjacent {
 					</label></td>
 				</tr>
 				<tr>
-					<td><input type="text" id="proid" name="pro_id" />
-					<div id='iderror' class="error_strings"></div></td>
+					<td><spring:bind path="product.pro_id">
+							<input type="text" id="proid" name="pro_id" />
+						</spring:bind>
+						<div id='iderror' class="error_strings"></div></td>
 				</tr>
 				<tr>
 					<td>Tags (Use comma (,) as a delimiter for Multiple values)</td>
-					<td><input type="text" name="tag" size="25"></td>
+					<td><spring:bind path="tag.name">
+							<input type="text" name="tag" size="25">
+						</spring:bind></td>
 				</tr>
 				<tr>
 					<td><label> Description </label>
 				</tr>
 				<tr>
-					<td><textarea id="description" rows="5" cols="30"
-							name="description"></textarea></td>
+					<td><spring:bind path="product.description">
+							<textarea id="description" rows="5" cols="30" name="description"></textarea>
+						</spring:bind></td>
 				</tr>
 				<tr>
 					<td><u>Product Properties</u></td>
@@ -151,29 +155,29 @@ td.adjacent {
 					<td>Select Product Vendor:</td>
 				</tr>
 				<tr>
-					<td><select id="sub_ven" onChange="function3(this)">
-							<option value="0">-- Select Your Vendor --</option>
-					</select></td>
-					<td><span id="fooBar12">&nbsp;</span></td>
+					<td><spring:bind path="vendor.ven_name">
+							<select id="sub_ven" onChange="function3(this)">
+								<option value="0">-- Select Your Vendor --</option>
+							</select>
+						</spring:bind></td>
+					<td><spring:bind path="vendor.ven_name">
+							<span id="fooBar12">&nbsp;</span>
+						</spring:bind></td>
 				</tr>
 				<tr>
 					<td>Select Product Catogory:</td>
 				</tr>
 				<tr>
-					<td><select id="sub_category" onChange="function2(this)">
-							<option value="0">-- Select Your Catogory --</option>
-					</select></td>
-					<td><span id="fooBar1">&nbsp;</span></td>
+					<td><spring:bind path="category.name">
+							<select id="sub_category" onChange="function2(this)">
+								<option value="0">-- Select Your Catogory --</option>
+							</select>
+						</spring:bind></td>
+					<td><spring:bind path="category.name">
+							<span id="fooBar1">&nbsp;</span>
+						</spring:bind></td>
 				</tr>
-				<tr>
-					<td>Select Product Type :</td>
-				</tr>
-				<tr>
-					<td><select id="protype" onChange="function1(this)">
-							<option value="0">-- Select Your Type --</option>
-					</select></td>
-					<td><span id="fooBar">&nbsp;</span></td>
-				</tr>
+
 				<tr>
 					<td><label> Selling Price </label> <input type="text" id="sp"
 						value="0.0" size="5" name="sel_price" />INR
@@ -183,14 +187,17 @@ td.adjacent {
 						value="0.0" size="5" name="weight" />Kg</td>
 				</tr>
 				<tr>
-					<td><INPUT TYPE="checkbox" id="tax" value="payTax">
-						Charge Tax</td>
+					<td><spring:bind path="product.sel_price">
+							<INPUT TYPE="checkbox" id="tax" value="payTax">
+						</spring:bind> Charge Tax</td>
 					<td><INPUT TYPE="checkbox" id="ship"> Require a
 						Shipping Address</td>
 
 				</tr>
 				<tr>
-					<td>Upload Picture :<input type="file" name="photo" /></td>
+					<td>Upload Picture :<spring:bind path="product.image">
+							<input type="file" name="photo" />
+						</spring:bind></td>
 				</tr>
 				<tr>
 					<td>Track Stock Level: <input type="checkbox" id="qu"
@@ -256,6 +263,8 @@ td.adjacent {
 
 		</form>
 
+		<script type="text/javascript"
+			src="<s:url value="/resources" />/js/script1.js"></script>
 
 	</div>
 	<script type="text/javascript">

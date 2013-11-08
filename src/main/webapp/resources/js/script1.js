@@ -75,22 +75,19 @@ function checkCookie()
 
 function makeVendorBox(id,attr){
 
-    var uri = path +'/api/user/'+id
+    var uri = path + '/store/api/getVendors/'+id
     $.getJSON(uri, function(data) {
         var items = [];
         var junk = 'select#'+attr;
-        //$(junk+'  option').remove();
-        //console.log(data.data.proType[0]);
-        for(var i=0 ; i < data.data.vendor.length; i++){
-            var go = path + '/api/'+'vendor'+'/'+data.data.vendor[i];
-
-            $.getJSON(go,function(hello){
-                //	console.log(hello.data.id+hello.data.type);
-                var row = "<option value=\"" + hello.data.id + "\">" + hello.data.ven_name+ "</option>";
-                $(row).appendTo(junk);
-            });
-
-        }
+                   
+            for (var key in data.data) {
+                if (data.data.hasOwnProperty(key)) {
+                    console.log(key + " -> " + data.data[key]);
+                     var row = "<option value=\"" + key + "\">" + data.data[key]+ "</option>";
+                    $(row).appendTo(junk);
+                }
+            }     
+                     
     })
         .error(function() { console.log("error,login please"); })
         .complete(function() { });
@@ -100,24 +97,19 @@ function makeComboBox(id,what,attr)
 
 {
 
-    var uri = path + '/api/user/'+id
+    var uri = path + '/store/api/getCategories/'+id
     $.getJSON(uri, function(data) {
         var items = [];
         var junk = 'select#'+attr;
-        //$(junk+'  option').remove();
-        console.log(data.data.collection[1]);
-        for(var i=0 ; i < data.data.collection.length; i++){
-            var go = path + '/api/'+what+'/'+data.data.collection[i];
-
-            $.getJSON(go,function(hello){
-                console.log(hello.data.id+hello.data.name+"......."+hello.data.parent);
-                if(hello.data.parent == null){
-                    var row = "<option value=\"" + hello.data.id + "\">" + hello.data.name+ "</option>";
+                   
+            for (var key in data.data) {
+                if (data.data.hasOwnProperty(key)) {
+                    console.log(key + " -> " + data.data[key]);
+                     var row = "<option value=\"" + key + "\">" + data.data[key]+ "</option>";
                     $(row).appendTo(junk);
                 }
-            });
-
-        }
+            }     
+                     
     })
         .error(function() { console.log("error,login please"); })
         .complete(function() { });
@@ -266,6 +258,7 @@ function function3(colors) {
 
 
 $("#z").click(function(event) {
+    console.log("z is clicked::::::::::");
     /*
      var frmvalidator  = new Validator("proform");
      frmvalidator.EnableOnPageErrorDisplay();

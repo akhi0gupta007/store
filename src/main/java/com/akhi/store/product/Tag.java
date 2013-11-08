@@ -127,4 +127,10 @@ public class Tag extends Props
 	return id;
 	}
 
+    @Override
+    public String toString()
+	{
+	return "Tag [id=" + id + ", name=" + name + ", user=" + user + ", products=" + products + "]";
+	}
+
     }

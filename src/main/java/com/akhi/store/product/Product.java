@@ -36,71 +36,70 @@ public class Product extends Props
     {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long    id;
+    private long	  id;
 
     @Column(nullable = false)
-    private String  title;
+    private String	title;
 
     @Column(nullable = true)
-    private String  description;
+    private String	description;
 
     @OneToOne
     @JoinColumn(name = "VENDOR_ID", nullable = true)
-    private Vendor  vendor;
+    private Vendor	vendor;
 
     @Column(nullable = true)
-    private String  image;
+    private String	image;
 
     @Column(nullable = false)
-    private Double  sel_price;
+    private Double	sel_price;
 
     @Column(nullable = true)
-    private Double  list_price;
+    private Double	list_price;
 
     @Column(nullable = true)
-    private Double  weight;
+    private Double	weight;
 
     @Column(nullable = true)
-    private String  dimen;
+    private String	dimen;
 
     @Column(nullable = true)
-    private String  pkg_dimen;
+    private String	pkg_dimen;
 
     @Column(nullable = false, unique = true)
-    private String  pro_id;
+    private String	pro_id;
 
     @Column(nullable = true)
-    private int     quan = 0;
+    private int	   quan       = 0;
 
     @Column(nullable = true)
-    private boolean tax;
+    private boolean       tax;
 
     @Column(nullable = true)
-    private boolean ship_addr;
+    private boolean       ship_addr;
 
     @Column(nullable = true)
-    private boolean ofo;
+    private boolean       ofo;
 
     @Column(nullable = true)
-    private Date    avail;
+    private Date	  avail;
 
     @Column(name = "DATE_CREATED", insertable = false, updatable = false, columnDefinition = "timestamp default current_timestamp")
     @org.hibernate.annotations.Generated(value = GenerationTime.INSERT)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date    dateCreated;
+    private Date	  dateCreated;
 
-    @ManyToOne(optional = false,cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_products", nullable = false)
-    private User    user;
-    
+    private User	  user;
+
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name="CAT_PRODUCT")
+    @JoinTable(name = "CAT_PRODUCT")
     private Set<Category> categories = new HashSet<Category>();
 
-    
-    @ManyToMany(fetch = FetchType.EAGER,mappedBy="products",cascade=CascadeType.PERSIST)
-    private Set<Tag> tags = new HashSet<Tag>();
-       
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "products", cascade = CascadeType.PERSIST)
+    private Set<Tag>      tags       = new HashSet<Tag>();
+
     /*    @Column(nullable = true)
         private Variants     variants;
 
@@ -111,49 +110,49 @@ public class Product extends Props
      * @return Returns the categories.
      */
     public Set<Category> getCategories()
-        {
-        return categories;
-        }
+	{
+	return categories;
+	}
 
     /**
      * @return Returns the tags.
      */
     public Set<Tag> getTags()
-        {
-        return tags;
-        }
+	{
+	return tags;
+	}
 
     /**
      * @param tags The tags to set.
      */
     public void setTags( Set<Tag> tags )
-        {
-        this.tags = tags;
-        }
+	{
+	this.tags = tags;
+	}
 
     /**
      * @param categories The categories to set.
      */
     public void setCategories( Set<Category> categories )
-        {
-        this.categories = categories;
-        }
+	{
+	this.categories = categories;
+	}
 
     /**
      * @return Returns the user.
      */
     public User getUser()
-        {
-        return user;
-        }
+	{
+	return user;
+	}
 
     /**
      * @param user The user to set.
      */
     public void setUser( User user )
-        {
-        this.user = user;
-        }
+	{
+	this.user = user;
+	}
 
     /*
      * static hasMany = [collection:CustomCollection,tags:Tag] static
@@ -334,8 +333,12 @@ public class Product extends Props
 	// TODO Auto-generated method stub
 	return id;
 	}
- 
-   
+
+    @Override
+    public String toString()
+	{
+	return "Product [id=" + id + ", title=" + title + ", description=" + description + ", vendor=" + vendor + ", image=" + image + ", sel_price=" + sel_price + ", list_price=" + list_price + ", weight=" + weight + ", dimen=" + dimen + ", pkg_dimen=" + pkg_dimen + ", pro_id=" + pro_id + ", quan=" + quan + ", tax=" + tax + ", ship_addr=" + ship_addr + ", ofo=" + ofo + ", avail=" + avail + ", dateCreated=" + dateCreated + ", user=" + user + ", categories=" + categories + ", tags=" + tags + "]";
+	}
 
     /*    public Variants getVariants()
     	{
