@@ -41,6 +41,8 @@ public interface ProductDao extends GenericDAO<Product, Long>
     List<Category> getCatgories( Long id );
 
     List<Product> getProducts( Long id );
+
+	void persistCat(String cat, Long id);
     
 
     }

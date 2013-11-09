@@ -5,6 +5,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class ProductVO
     {
 
+	private Long id;
+	
     private String name;
 
     private String description;
@@ -155,6 +157,14 @@ public class ProductVO
     public void setDescription( String description )
 	{
 	this.description = description;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
     }
