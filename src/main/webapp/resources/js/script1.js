@@ -278,7 +278,7 @@ $("#z").click(function(event) {
 
     //  $('#add').hide();
     $('#show').show();
-
+ console.log("show");
 
     var cat = '0';
     if($('#sub_category').val()=='0'){
@@ -343,9 +343,9 @@ $("#z").click(function(event) {
         $('#iderror').html("ID is Required.");
         doit ='no'
     }
-
+    console.log("Submitting form>"+doit);
     if(doit == 'yes')
-        $('#proform').submit();
+        $('#product').submit();
 
 
 

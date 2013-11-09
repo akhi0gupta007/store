@@ -107,9 +107,8 @@ td.adjacent {
 				</div></li>
 		</ul>
 		<div style="clear: both"></div>
-		<form action="${request.contextPath}/store/product/newProduct"
-			id="proform" method="post" enctype="multipart/form-data"
-			name="proform">
+		<form:form action="${request.contextPath}/store/product/newProduct"
+			method="post" name="proform" commandName="product" enctype="multipart/form-data">
 			<!--<p><g:link action="by">Add By Template</g:link> </p>    -->
 			<table cellpadding="3">
 				<tr>
@@ -118,9 +117,8 @@ td.adjacent {
 					</label></td>
 				</tr>
 				<tr>
-					<td><spring:bind path="product.title">
-							<input type="text" id="proname" name="title" />
-						</spring:bind>
+					<td><form:input path="name" id="proname" />
+
 						<div id='titleerror' class="error_strings"></div></td>
 				</tr>
 				<tr>
@@ -129,24 +127,19 @@ td.adjacent {
 					</label></td>
 				</tr>
 				<tr>
-					<td><spring:bind path="product.pro_id">
-							<input type="text" id="proid" name="pro_id" />
-						</spring:bind>
+					<td><form:input path="pro_id" id="proid" />
+
 						<div id='iderror' class="error_strings"></div></td>
 				</tr>
 				<tr>
 					<td>Tags (Use comma (,) as a delimiter for Multiple values)</td>
-					<td><spring:bind path="tag.name">
-							<input type="text" name="tag" size="25">
-						</spring:bind></td>
+					<td><form:input path="tag" size="25" /></td>
 				</tr>
 				<tr>
 					<td><label> Description </label>
 				</tr>
 				<tr>
-					<td><spring:bind path="product.description">
-							<textarea id="description" rows="5" cols="30" name="description"></textarea>
-						</spring:bind></td>
+					<td><form:textarea path="description" rows="5" cols="30" /></td>
 				</tr>
 				<tr>
 					<td><u>Product Properties</u></td>
@@ -155,49 +148,41 @@ td.adjacent {
 					<td>Select Product Vendor:</td>
 				</tr>
 				<tr>
-					<td><spring:bind path="vendor.ven_name">
-							<select id="sub_ven" onChange="function3(this)">
-								<option value="0">-- Select Your Vendor --</option>
-							</select>
-						</spring:bind></td>
-					<td><spring:bind path="vendor.ven_name">
-							<span id="fooBar12">&nbsp;</span>
-						</spring:bind></td>
+					<td><form:select path="vendor" onchange="function3(this)"
+							id="sub_ven">
+							<form:option value="0">-- Select Your Vendor --</form:option>
+						</form:select></td>
+					<td><span id="fooBar12">&nbsp;</span></td>
 				</tr>
 				<tr>
 					<td>Select Product Catogory:</td>
 				</tr>
 				<tr>
-					<td><spring:bind path="category.name">
-							<select id="sub_category" onChange="function2(this)">
-								<option value="0">-- Select Your Catogory --</option>
-							</select>
-						</spring:bind></td>
-					<td><spring:bind path="category.name">
-							<span id="fooBar1">&nbsp;</span>
-						</spring:bind></td>
+					<td><form:select path="category" onchange="function2(this)"
+							id="sub_category">
+							<form:option value="0">-- Select Your Catogory --</form:option>
+						</form:select></td>
+					<td><span id="fooBar1">&nbsp;</span></td>
 				</tr>
 
 				<tr>
-					<td><label> Selling Price </label> <input type="text" id="sp"
-						value="0.0" size="5" name="sel_price" />INR
+					<td><label> Selling Price </label> <form:input
+							path="sel_price" id="sp" size="5" />INR
 				</tr>
 				<tr>
-					<td><label> Weight </label> <input type="text" id="wt"
-						value="0.0" size="5" name="weight" />Kg</td>
+					<td><label> Weight </label> <form:input path="weight" id="wt"
+							size="5" />Kg</td>
 				</tr>
 				<tr>
-					<td><spring:bind path="product.sel_price">
-							<INPUT TYPE="checkbox" id="tax" value="payTax">
-						</spring:bind> Charge Tax</td>
+					<td><INPUT TYPE="checkbox" id="tax" value="payTax">
+						Charge Tax</td>
 					<td><INPUT TYPE="checkbox" id="ship"> Require a
 						Shipping Address</td>
 
 				</tr>
 				<tr>
-					<td>Upload Picture :<spring:bind path="product.image">
-							<input type="file" name="photo" />
-						</spring:bind></td>
+					<td>Upload Picture : <input type="file" name="file" />
+					</td>
 				</tr>
 				<tr>
 					<td>Track Stock Level: <input type="checkbox" id="qu"
@@ -248,20 +233,22 @@ td.adjacent {
 
 
 				</tr>
-				<td><input name="akhilesh" type="hidden" id="xyz" value="">
-					<input name="coll" type="hidden" id="collc" value=""> <input
-					name="ptype" type="hidden" id="ptc" value=""> <input
-					name="vendors" type="hidden" id="venc" value=""> <input
-					name="tax" type="hidden" id="tc" value=""> <input
-					name="ship_addr" type="hidden" id="sc" value=""> <input
-					name="quan" type="hidden" id="un" value=""> <input
-					type="button" value="Create" id="z" /></td>
+
+				<tr>
+					<td><input name="akhilesh" type="hidden" id="xyz" value="">
+						<form:hidden path="coll" id="collc" /> <form:hidden
+							path="vendors" id="venc" /> 
+							
+						<input name="tax" type="hidden"
+						id="tc" value=""> <input name="ship_addr" type="hidden"
+						id="sc" value=""> <input name="quan" type="hidden" id="un"
+						value=""> <input type="button" value="Create" id="z" /></td>
 				</tr>
 
 
 			</table>
 
-		</form>
+		</form:form>
 
 		<script type="text/javascript"
 			src="<s:url value="/resources" />/js/script1.js"></script>

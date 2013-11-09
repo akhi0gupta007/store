@@ -75,6 +75,10 @@
 
 	<bean id="hibernateListener" class="com.akhi.store.listener.SaveUpdateListener"></bean>
 
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+
+
 	<!-- <tx:advice id="txAdvice"> <tx:attributes> <tx:method name="*" propagation="REQUIRED" 
 		/> </tx:attributes> </tx:advice> <aop:config> <aop:advisor pointcut="execution(* 
 		com.akhi.store.util..*.*(..))" advice-ref="txAdvice" /> </aop:config> -->

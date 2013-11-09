@@ -146,8 +146,9 @@ public class Category extends Props
     @Override
     public String toString()
 	{
-	return "Category [id=" + id + ", name=" + name + ", description=" + description + ", user=" + user + ", products=" + products + "]";
+	return "Category [id=" + id + ", name=" + name + ", description=" + description + "]";
 	}
+
     
 
 
