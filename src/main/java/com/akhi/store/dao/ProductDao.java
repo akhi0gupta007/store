@@ -42,7 +42,16 @@ public interface ProductDao extends GenericDAO<Product, Long>
 
     List<Product> getProducts( Long id );
 
-	void persistCat(String cat, Long id);
+    Category persistCat( Category cat, Long id );
+
+    Product persistProduct( Product product, Long userId );
+
+    Object mergeChanges( Object entity );
     
+    Category findCatById(Long id);
+    
+    Tag findTagById(Long id);
+    
+    Vendor findVendorById(Long id);
 
     }

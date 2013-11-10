@@ -17,111 +17,171 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.akhi.store.general.User;
 import com.akhi.store.product.Category;
 import com.akhi.store.product.Product;
 import com.akhi.store.product.Tag;
 import com.akhi.store.product.Vendor;
 
 /*-----------------------------------------------------------------------*//**
- * 
- * @author
- *         akhilesh
- * @version %R%
- * 
- * <BR>
- *          <B>Revision History:</B><BR>
- * 
- *          <PRE>
- *     Date        | User  | Description
- *     ------------------------------------------------------------
- *     May 27, 2013 | akhilesh   | Original
- * </PRE>
- * 
- * @since JDK1.4.2_07
- * 
- */
+* 
+* @author
+*         akhilesh
+* @version %R%
+* 
+* <BR>
+*          <B>Revision History:</B><BR>
+* 
+*          <PRE>
+*     Date        | User  | Description
+*     ------------------------------------------------------------
+*     May 27, 2013 | akhilesh   | Original
+* </PRE>
+* 
+* @since JDK1.4.2_07
+* 
+*/
 /*-----------------------------------------------------------------------*/
 @Repository
 @SuppressWarnings("unchecked")
 public class ProductDaoImpl extends GenericHibernateDAO<Product, Long>
-		implements ProductDao, ApplicationContextAware {
+								      implements
+								      ProductDao,
+								      ApplicationContextAware
 
-	private ApplicationContext context;
+    {
 
-	@Override
-	public List<Product> findByExample(Product exampleInstance) {
-		// TODO Auto-generated method stub
-		return null;
+    private ApplicationContext context;
+
+    @Override
+    public List<Product> findByExample( Product exampleInstance )
+	{
+	// TODO Auto-generated method stub
+	return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "ProductDaoImpl [session=" + session + "]";
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString()
+	{
+	return "ProductDaoImpl [session=" + session + "]";
 	}
 
-	@Override
-	@Transactional
-	public List<Vendor> getVendors(Long id) {
+    @Override
+    @Transactional
+    public List<Vendor> getVendors( Long id )
+	{
 
-		Query query = getSession().createQuery("from vendor where USER_ID=:id");
-		query.setParameter("id", id);
-		List<?> result = query.list();
-		return (List<Vendor>) result;
+	Query query = getSession().createQuery("from vendor where USER_ID=:id");
+	query.setParameter("id", id);
+	List<?> result = query.list();
+	return (List<Vendor>) result;
 	}
 
-	@Override
-	@Transactional
-	public List<Tag> getTags(Long id) {
-		Query query = getSession().createQuery("from tag where USER_ID=:id");
-		query.setParameter("id", id);
-		List<?> result = query.list();
-		return (List<Tag>) result;
+    @Override
+    @Transactional
+    public List<Tag> getTags( Long id )
+	{
+	Query query = getSession().createQuery("from tag where USER_ID=:id");
+	query.setParameter("id", id);
+	List<?> result = query.list();
+	return (List<Tag>) result;
 	}
 
-	@Override
-	@Transactional
-	public List<Category> getCatgories(Long id) {
-		Query query = getSession().createQuery(
-				"from catogory where USER_ID=:id");
-		query.setParameter("id", id);
-		List<?> result = query.list();
-		return (List<Category>) result;
+    @Override
+    @Transactional
+    public List<Category> getCatgories( Long id )
+	{
+	Query query = getSession().createQuery("from catogory where USER_ID=:id");
+	query.setParameter("id", id);
+	List<?> result = query.list();
+	return (List<Category>) result;
 	}
 
-	@Override
-	@Transactional
-	public List<Product> getProducts(Long id) {
-		Query query = getSession().createQuery(
-				"from product where user_products=:id");
-		query.setParameter("id", id);
-		List<?> result = query.list();
-		return (List<Product>) result;
+    @Override
+    @Transactional
+    public List<Product> getProducts( Long id )
+	{
+	Query query = getSession().createQuery("from product where user_products=:id");
+	query.setParameter("id", id);
+	List<?> result = query.list();
+	return (List<Product>) result;
 	}
 
-	@Override
-	public void setApplicationContext(ApplicationContext arg0)
-			throws BeansException {
-		setContext(arg0);
+    @Override
+    public void setApplicationContext( ApplicationContext arg0 ) throws BeansException
+	{
+	setContext(arg0);
 
 	}
 
-	public ApplicationContext getContext() {
-		return context;
+    public ApplicationContext getContext()
+	{
+	return context;
 	}
 
-	public void setContext(ApplicationContext context) {
-		this.context = context;
+    public void setContext( ApplicationContext context )
+	{
+	this.context = context;
 	}
 
-	@Override
-	public void persistCat(String cat, Long id) {
-		// TODO Auto-generated method stub
-		
+    @Override
+    public Product persistProduct( Product product, Long userId )
+	{
+	User user = (User) getSession().load(User.class, userId);
+	if (user == null)
+	    {
+	    log.error("persistProduct: Could not load user");
+	    return null;
+	    }
+
+	product.setUser(user);
+	product = makePersistent(product);
+
+	return product;
 	}
 
-}
+    @Override
+    public Category persistCat( Category cat, Long userId )
+	{
+	User user = (User) getSession().load(User.class, userId);
+	if (user == null)
+	    {
+	    log.error("persistCat: Could not load user");
+	    return null;
+	    }
+	cat.setUser(user);
+	getSession().saveOrUpdate(cat);
+
+	return cat;
+	}
+
+    public Object mergeChanges( Object entity )
+	{
+	Object obj = getSession().merge(entity);
+	return obj;
+	}
+
+    @Override
+    public Category findCatById( Long id )
+	{
+	return (Category) getSession().load(Category.class, id);
+	}
+
+    @Override
+    public Tag findTagById( Long id )
+	{
+	return (Tag) getSession().load(Tag.class, id);
+	}
+
+    @Override
+    public Vendor findVendorById( Long id )
+	{
+	return (Vendor) getSession().load(Vendor.class, id);
+	}
+
+    }

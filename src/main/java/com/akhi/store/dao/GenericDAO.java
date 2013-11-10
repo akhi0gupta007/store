@@ -40,4 +40,5 @@ public interface GenericDAO<T, ID extends Serializable>
     T makePersistent( T entity );
 
     void makeTransient( T entity );
+
     }

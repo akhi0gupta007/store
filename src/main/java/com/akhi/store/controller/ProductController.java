@@ -111,13 +111,5 @@ public class ProductController {
 		return result;
 	}
 
-	public boolean isLong(String input) {
-		try {
-			Long.parseLong(input);
-			return true;
-		} catch (Exception ex) {
-			return false;
-		}
-	}
 
 }

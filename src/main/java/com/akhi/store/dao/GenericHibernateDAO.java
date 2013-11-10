@@ -22,110 +22,129 @@ import org.hibernate.criterion.Example;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /*-----------------------------------------------------------------------*//**
- * 
- * @author
- *         akhilesh
- * @version %R%
- * 
- * <BR>
- *          <B>Revision History:</B><BR>
- * 
- *          <PRE>
- *     Date        | User  | Description
- *     ------------------------------------------------------------
- *     May 20, 2013 | akhilesh   | Original
- * </PRE>
- * 
- * @since JDK1.4.2_07
- * 
- */
+* 
+* @author
+*         akhilesh
+* @version %R%
+* 
+* <BR>
+*          <B>Revision History:</B><BR>
+* 
+*          <PRE>
+*     Date        | User  | Description
+*     ------------------------------------------------------------
+*     May 20, 2013 | akhilesh   | Original
+* </PRE>
+* 
+* @since JDK1.4.2_07
+* 
+*/
 /*-----------------------------------------------------------------------*/
 
 public abstract class GenericHibernateDAO<T, ID extends Serializable>
-		implements GenericDAO<T, Long> {
-	private Class<T> persistentClass;
+								      implements
+								      GenericDAO<T, Long>
 
-	protected Session session;
+    {
+    private Class<T>	persistentClass;
 
-	@Autowired
-	private SessionFactory sessionFactory;
+    protected Session       session;
 
-	protected static Logger log = Logger.getLogger(GenericHibernateDAO.class);
+    @Autowired
+    private SessionFactory  sessionFactory;
 
-	@SuppressWarnings("unchecked")
-	public GenericHibernateDAO() {
-		this.persistentClass = (Class<T>) ((ParameterizedType) getClass()
-				.getGenericSuperclass()).getActualTypeArguments()[0];
+    protected static Logger log = Logger.getLogger(GenericHibernateDAO.class);
+
+    @SuppressWarnings("unchecked")
+    public GenericHibernateDAO()
+	{
+	this.persistentClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
-	protected Session getSession() {
-		return sessionFactory.getCurrentSession();
+    protected Session getSession()
+	{
+	return sessionFactory.getCurrentSession();
 	}
 
-	public Class<T> getPersistentClass() {
-		return persistentClass;
+    public Class<T> getPersistentClass()
+	{
+	return persistentClass;
 	}
 
-	public T findById(Long id, boolean lock) {
-		T entity;
-		log.warn("Session here >>>>>>>>>>>>>>>>>>>>>>>"+getSession());
-		if (lock)
-			entity = (T) getSession().load(getPersistentClass(), id,
-					LockMode.UPGRADE);
-		else
-			entity = (T) getSession().load(getPersistentClass(), id);
+    public T findById( Long id, boolean lock )
+	{
+	T entity;
+	log.warn("Session here >>>>>>>>>>>>>>>>>>>>>>>" + getSession());
+	if (lock)
+	    entity = (T) getSession().load(getPersistentClass(),
+					   id,
+					   LockMode.UPGRADE);
+	else
+	    entity = (T) getSession().load(getPersistentClass(), id);
 
-		return entity;
+	return entity;
 	}
 
-	public List<T> findAll() {
-		return findByCriteria();
+    public List<T> findAll()
+	{
+	return findByCriteria();
 	}
 
-	public List<T> findByExample(T exampleInstance, String[] excludeProperty) {
-		Criteria crit = getSession().createCriteria(getPersistentClass());
-		Example example = Example.create(exampleInstance);
-		for (String exclude : excludeProperty) {
-			example.excludeProperty(exclude);
-		}
-		crit.add(example);
-		return crit.list();
+    public List<T> findByExample( T exampleInstance, String[] excludeProperty )
+	{
+	Criteria crit = getSession().createCriteria(getPersistentClass());
+	Example example = Example.create(exampleInstance);
+	for (String exclude : excludeProperty)
+	    {
+	    example.excludeProperty(exclude);
+	    }
+	crit.add(example);
+	return crit.list();
 	}
 
-	public T makePersistent(T entity) {
-		getSession().saveOrUpdate(entity);
-		return entity;
+    public T makePersistent( T entity )
+	{
+	getSession().saveOrUpdate(entity);
+	return entity;
 	}
 
-	public void makeTransient(T entity) {
-		getSession().delete(entity);
+    public void makeTransient( T entity )
+	{
+	getSession().delete(entity);
 	}
 
-	public void flush() {
-		getSession().flush();
+    public void flush()
+	{
+	getSession().flush();
 	}
 
-	public void clear() {
-		getSession().clear();
+    public void clear()
+	{
+	getSession().clear();
 	}
 
-	/**
-	 * Use this inside subclasses as a convenience method.
-	 */
+    /**
+     * Use this inside subclasses as a convenience method.
+     */
 
-	protected List<T> findByCriteria(Criterion... criterion) {
-		Criteria crit = getSession().createCriteria(getPersistentClass());
-		for (Criterion c : criterion) {
-			crit.add(c);
-		}
-		return crit.list();
+    protected List<T> findByCriteria( Criterion... criterion )
+	{
+	Criteria crit = getSession().createCriteria(getPersistentClass());
+	for (Criterion c : criterion)
+	    {
+	    crit.add(c);
+	    }
+	return crit.list();
 	}
 
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
+    public SessionFactory getSessionFactory()
+	{
+	return sessionFactory;
 	}
 
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
+    public void setSessionFactory( SessionFactory sessionFactory )
+	{
+	this.sessionFactory = sessionFactory;
 	}
-}
+
+    }

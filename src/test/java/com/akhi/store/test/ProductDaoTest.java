@@ -67,29 +67,29 @@ public class ProductDaoTest
     @Transactional
     public final void testMakePersistent()
 	{
-	User user = dao.findById(1l, true);
+	//	User user = dao.findById(1l, true);
 	Product product = makeProduct();
-	product.setUser(user);
-	Category cat = new Category("pc", user);
-	Set<Product> products = new HashSet<Product>();
-	products.add(product);
-	cat.setProducts(products);
-	Set<Category> cats = new HashSet<Category>();
-	cats.add(cat);
 
-	user.setCatogories(cats);
-	product.setCategories(cats);
-	Set<Tag> tags = getTags(user);
-	user.setTags(tags);
-	product.setTags((Set<Tag>) tags);
-	for (Tag tag : tags)
-	    {
-	    HashSet<Product> set = new HashSet<Product>();
-	    set.add(product);
-	    tag.setProducts(set);
-	    }
-	assertNotNull(dao.makePersistent(user));
-	assertNotNull(productDao.makePersistent(product));
+	//	Category cat = new Category("pc", user);
+	//	Set<Product> products = new HashSet<Product>();
+	//	products.add(product);
+	//	cat.setProducts(products);
+	//	Set<Category> cats = new HashSet<Category>();
+	//	cats.add(cat);
+	//
+	//	user.setCatogories(cats);
+	//	product.setCategories(cats);
+	//	Set<Tag> tags = getTags(user);
+	//	user.setTags(tags);
+	//	product.setTags((Set<Tag>) tags);
+	//	for (Tag tag : tags)
+	//	    {
+	//	    HashSet<Product> set = new HashSet<Product>();
+	//	    set.add(product);
+	//	    tag.setProducts(set);
+	//	    }
+	//assertNotNull(dao.makePersistent(user));
+	assertNotNull(productDao.persistProduct(product, 1L));
 
 	}
 
@@ -97,7 +97,7 @@ public class ProductDaoTest
 	{
 
 	Product product = new Product();
-	product.setTitle("RIN");
+	product.setTitle("erer");
 	product.setSel_price(123.0);
 	Random random = new Random();
 	product.setPro_id(String.valueOf(Math.abs(random.nextInt())));
