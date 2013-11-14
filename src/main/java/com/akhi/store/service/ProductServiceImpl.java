@@ -9,9 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.akhi.store.dao.ProductDao;
-import com.akhi.store.dao.UserDao;
-import com.akhi.store.general.ProductServiceLog;
-import com.akhi.store.general.User;
 import com.akhi.store.product.Category;
 import com.akhi.store.product.Product;
 import com.akhi.store.product.ProductVO;
@@ -20,22 +17,10 @@ import com.akhi.store.product.ProductVO;
 public class ProductServiceImpl implements ProductService
     {
 
-    private static org.apache.log4j.Logger	log	   = Logger.getLogger(ProductServiceImpl.class);
-
-    private static ThreadLocal<ProductServiceLog> transactionId = new ThreadLocal<ProductServiceLog>()
-								    {
-
-									@Override
-									protected ProductServiceLog initialValue()
-									    {
-
-									    return new ProductServiceLog();
-									    }
-
-								    };
+    private static org.apache.log4j.Logger log = Logger.getLogger(ProductServiceImpl.class);
 
     @Autowired
-    private ProductDao			    dao;
+    private ProductDao		     dao;
 
     @Override
     @Transactional
@@ -50,6 +35,10 @@ public class ProductServiceImpl implements ProductService
 	    return null;
 	    }
 	userId = obj.getId();
+	if (userId == null)
+	    {
+	    return null;
+	    }
 
 	log.info("Going to persist product for user." + userId);
 
@@ -78,15 +67,19 @@ public class ProductServiceImpl implements ProductService
 	    {
 	    log.info("persistProduct:Going to persist Cateogory : " + obj.getCategory());
 	    Long id = Long.parseLong(obj.getCategory());
-	    cat = dao.findCatById(id);
-	    log.info("Found Cat as " + cat);
-	    Set<Product> products = cat.getProducts();
-	    products.add(product);
-	    Set<Category> newCats = new HashSet<Category>();
-	    newCats.add(cat);
-	    product.setCategories(newCats);
-	    dao.mergeChanges(cat);
-	    dao.mergeChanges(product);
+	    if (id > 0)
+		{
+		cat = dao.findCatById(id);
+		log.info("Found Cat as " + cat);
+		Set<Product> products = cat.getProducts();
+		products.add(product);
+		Set<Category> newCats = new HashSet<Category>();
+		newCats.add(cat);
+		product.setCategories(newCats);
+		dao.mergeChanges(cat);
+		dao.mergeChanges(product);
+		}
+
 	    }
 	else
 	    {

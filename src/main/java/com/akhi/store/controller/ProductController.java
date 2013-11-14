@@ -26,90 +26,105 @@ import com.akhi.store.product.ProductVO;
 import com.akhi.store.service.ProductService;
 
 @Controller
-@RequestMapping(value = { "/product" })
-@SessionAttributes(value = { "customer" })
-public class ProductController {
-	private static org.apache.log4j.Logger log = Logger
-			.getLogger(ProductController.class);
+@RequestMapping(value =
+    { "/product" })
+@SessionAttributes(value =
+    { "customer" })
+public class ProductController
+    {
+    private static org.apache.log4j.Logger log = Logger.getLogger(ProductController.class);
 
-	@Value("${upload.location}")
-	private String uploadLocation;
-	
-	@Inject
-	private ProductService service; 
+    @Value("${upload.location}")
+    private String			 uploadLocation;
 
-	@RequestMapping(value = { "/addProduct" }, method = RequestMethod.GET)
-	public String addProduct(ModelMap model,
-			@RequestParam(value = "cat", defaultValue = "NAP") String cat,
-			HttpSession session) {
-		String result = "customer";
+    @Inject
+    private ProductService		 service;
 
-		if (session.getAttribute("customer") != null) {
-			User user = (User) session.getAttribute("customer");
+    @RequestMapping(value =
+	{ "/addProduct" }, method = RequestMethod.GET)
+    public String addProduct( ModelMap model,
+			      @RequestParam(value = "cat", defaultValue = "NAP")
+			      String cat,
+			      HttpSession session )
+	{
+	String result = "customer";
 
-			if (user != null) {
-				ProductVO product = new ProductVO();
-				product.setId(user.getId());
-				model.addAttribute("product", product);
+	if (session.getAttribute("customer") != null)
+	    {
+	    User user = (User) session.getAttribute("customer");
 
-				log.warn("Dash board , session is present for " + user);
-				result = "addProduct";
-			}
-		}
+	    if (user != null)
+		{
+		ProductVO product = new ProductVO();
+		product.setId(user.getId());
+		model.addAttribute("product", product);
 
-		return result;
-	}
-
-	@RequestMapping(value = { "/newProduct" }, method = RequestMethod.POST)
-	public String putProduct(ModelMap model, HttpSession session,
-			@ModelAttribute("product") ProductVO product, BindingResult bresult) {
-		String result = null;
-		
-		
-		if (session.getAttribute("customer") != null) {
-			User user = (User) session.getAttribute("customer");
-
-			if (user != null) {
-				product.setId(user.getId());
-				log.warn("Adding product:    :::::::::::::" + product);
-				service.persistProduct(product);
-			}
-		}
-		
-/*		InputStream inputStream = null;
-		OutputStream outputStream = null;
-	
-	
-		MultipartFile file = product.getFile();
-		if (file != null) {
-			log.warn("File Name: " + file.getName() + ", original name: "
-					+ file.getOriginalFilename());
-			try {
-				inputStream = file.getInputStream();
-
-				log.warn("Uploading at :::::::::::::::::::" + uploadLocation);
-				File newFile = new File(uploadLocation
-						+ file.getOriginalFilename());
-				if (!newFile.exists()) {
-					newFile.createNewFile();
-				}
-				outputStream = new FileOutputStream(newFile);
-				int read = 0;
-				byte[] bytes = new byte[1024];
-
-				while ((read = inputStream.read(bytes)) != -1) {
-					outputStream.write(bytes, 0, read);
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		}*/
-
+		log.warn("Dash board , session is present for " + user);
 		result = "addProduct";
-		return result;
+		}
+	    }
+
+	return result;
 	}
 
+    @RequestMapping(value =
+	{ "/newProduct" }, method = RequestMethod.POST)
+    public String putProduct( ModelMap model,
+			      HttpSession session,
+			      @ModelAttribute("product")
+			      ProductVO product,
+			      BindingResult bresult )
+	{
+	String result = null;
 
-}
+	if (session.getAttribute("customer") != null)
+	    {
+	    User user = (User) session.getAttribute("customer");
+
+	    if (user != null)
+		{
+		product.setId(user.getId());
+		log.warn("Adding product:    :::::::::::::" + product);
+		service.persistProduct(product);
+		}
+	    }
+
+	InputStream inputStream = null;
+	OutputStream outputStream = null;
+
+	MultipartFile file = product.getFile();
+	if (file != null)
+	    {
+	    log.warn("File Name: " + file.getName() + ", original name: " + file.getOriginalFilename());
+	    try
+		{
+		inputStream = file.getInputStream();
+
+		log.warn("Uploading at :::::::::::::::::::" + uploadLocation);
+		File newFile = new File(uploadLocation + file.getOriginalFilename());
+		if (!newFile.exists())
+		    {
+		    newFile.createNewFile();
+		    }
+		outputStream = new FileOutputStream(newFile);
+		int read = 0;
+		byte[] bytes = new byte[1024];
+
+		while ((read = inputStream.read(bytes)) != -1)
+		    {
+		    outputStream.write(bytes, 0, read);
+		    }
+		}
+	    catch (IOException e)
+		{
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+
+	    }
+
+	result = "addProduct";
+	return result;
+	}
+
+    }

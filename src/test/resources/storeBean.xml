@@ -42,6 +42,7 @@
 				<value>com.akhi.store.product.Vendor</value>
 				<value>com.akhi.store.product.Category</value>
 				<value>com.akhi.store.product.Tag</value>
+				<value>com.akhi.store.general.ProductServiceLog</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

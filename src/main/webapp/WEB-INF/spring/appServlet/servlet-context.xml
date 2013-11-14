@@ -61,6 +61,7 @@
 				<value>com.akhi.store.product.Vendor</value>
 				<value>com.akhi.store.product.Category</value>
 				<value>com.akhi.store.product.Tag</value>
+				<value>com.akhi.store.general.ProductServiceLog</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -116,11 +117,22 @@
 	<!-- Register the Customer.properties -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basename" value="Customer" />
+
 	</bean>
 	<!-- Hibernate Listener -->
 
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+
+	<mvc:interceptors>
+
+		<mvc:interceptor>
+			<mvc:mapping path="/product/newProduct" />
+			<bean id="productInterceptor" class="com.akhi.store.listener.LoggingInterceptor"
+				autowire="byType">
+			</bean>
+		</mvc:interceptor>
+
+	</mvc:interceptors>
 
 </beans>

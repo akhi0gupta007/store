@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
+@Entity(name="productServiceLog")
 public class ProductServiceLog extends Props
     {
 
@@ -19,6 +19,20 @@ public class ProductServiceLog extends Props
 
     @Column(nullable = false)
     private String threadName;
+    	
+    @Column(nullable=false)
+    private Long executionTime;
+    
+
+    public Long getExecutionTime()
+        {
+        return executionTime;
+        }
+
+    public void setExecutionTime( Long executionTime )
+        {
+        this.executionTime = executionTime;
+        }
 
     public Long getId()
 	{
@@ -45,10 +59,12 @@ public class ProductServiceLog extends Props
 	this.threadName = threadName;
 	}
 
+
+
     @Override
     public String toString()
 	{
-	return "ProductServiceLog [id=" + id + ", className=" + className + ", threadName=" + threadName + "]";
+	return "ProductServiceLog [id=" + id + ", className=" + className + ", threadName=" + threadName + ", executionTime=" + executionTime + "]";
 	}
 
     public ProductServiceLog(String className, String threadName)
