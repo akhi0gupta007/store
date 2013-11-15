@@ -54,4 +54,6 @@ public interface ProductDao extends GenericDAO<Product, Long>
     
     Vendor findVendorById(Long id);
 
+    Vendor persistVen( Vendor ven , Long id);
+
     }

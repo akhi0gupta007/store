@@ -132,6 +132,14 @@
 				autowire="byType">
 			</bean>
 		</mvc:interceptor>
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/home/dashboard" />
+			<mvc:mapping path="/product/*"/>
+			<bean id="interceptor" class="com.akhi.store.listener.GeneralInterceptor"
+				autowire="byType">
+			</bean>
+		</mvc:interceptor>
 
 	</mvc:interceptors>
 

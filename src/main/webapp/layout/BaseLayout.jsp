@@ -19,7 +19,7 @@
 		<tiles:insertAttribute name="topbar" />
 		</div>
 		<div id="header">
-			<h1>Task Submission App</h1>
+			<h1>DoKilo</h1>
 		</div>
 		<div id="content">
 			<tiles:insertAttribute name="body" />

@@ -108,9 +108,13 @@ td.adjacent {
 		</ul>
 		<div style="clear: both"></div>
 		<form:form action="${request.contextPath}/store/product/newProduct"
-			method="post" name="proform" commandName="product" enctype="multipart/form-data">
+			method="post" name="proform" commandName="product"
+			enctype="multipart/form-data">
 			<!--<p><g:link action="by">Add By Template</g:link> </p>    -->
 			<table cellpadding="3">
+				<tr>
+					<td>${error }</td>
+				</tr>
 				<tr>
 					<td><label for="product"> Product Title <span
 							class="required-indicator">*</span>
@@ -237,9 +241,7 @@ td.adjacent {
 				<tr>
 					<td><input name="akhilesh" type="hidden" id="xyz" value="">
 						<form:hidden path="coll" id="collc" /> <form:hidden
-							path="vendors" id="venc" /> 
-							
-						<input name="tax" type="hidden"
+							path="vendors" id="venc" /> <input name="tax" type="hidden"
 						id="tc" value=""> <input name="ship_addr" type="hidden"
 						id="sc" value=""> <input name="quan" type="hidden" id="un"
 						value=""> <input type="button" value="Create" id="z" /></td>

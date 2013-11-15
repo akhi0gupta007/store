@@ -2,6 +2,7 @@ package com.akhi.store.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -10,10 +11,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.apache.log4j.Logger;
 
 import com.akhi.store.general.User;
 import com.akhi.store.service.UserService;
@@ -49,28 +48,20 @@ public class HomeController
 	}
 
     @RequestMapping(value =
-	{ "/addProduct" }, method = RequestMethod.GET)
-    public String addProduct( ModelMap model,
-			      @RequestParam(value = "cat", defaultValue = "NAP")
-			      String cat )
+	{ "/logout" }, method = RequestMethod.GET)
+    public String logout( ModelMap model, HttpSession session )
 	{
-	String result = "customer";
+	log.info("logout");
 
-	if (model.containsKey("customer"))
-	    {
-	    User user = (User) model.get("customer");
-	    if (user != null)
-		{
-		log.warn("Dash board , session is present for " + user);
-		result = "addProduct";
+	model.clear();
+	session.invalidate();
+	log.warn("removed key");
 
-		}
-	    }
-
-	return result;
+	return "redirect:/";
 	}
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value =
+	{ "/authenticate" }, method = RequestMethod.POST)
     public String processLogin( @ModelAttribute("customer")
     User user, BindingResult result, SessionStatus status, ModelMap model )
 	{
@@ -87,8 +78,22 @@ public class HomeController
 	    user = service.autheticate(user.getUserId(), user.getPassword());
 	    log.info("processLogin() " + user + " against" + user.getUserId() + "" + user.getPassword());
 	    model.addAttribute("customer", user);
+	    return "redirect:/home/dashboard";
+	    }
+
+	}
+
+    @RequestMapping(value =
+	{ "/dashboard" }, method = RequestMethod.POST)
+    public String dashboard( SessionStatus status, ModelMap model )
+	{
+	if (model.containsKey("customer"))
+	    {
+	    User user = (User) model.get("customer");
+	    model.addAttribute("customer", user);
 	    return "success";
 	    }
+	return "customer";
 
 	}
 

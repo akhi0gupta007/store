@@ -6,12 +6,14 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.akhi.store.dao.ProductDao;
 import com.akhi.store.product.Category;
 import com.akhi.store.product.Product;
 import com.akhi.store.product.ProductVO;
+import com.akhi.store.product.Vendor;
 
 @Service
 public class ProductServiceImpl implements ProductService
@@ -23,7 +25,7 @@ public class ProductServiceImpl implements ProductService
     private ProductDao		     dao;
 
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Product persistProduct( ProductVO obj )
 	{
 
@@ -35,7 +37,7 @@ public class ProductServiceImpl implements ProductService
 	    return null;
 	    }
 	userId = obj.getId();
-	if (userId == null)
+	if (userId == null || userId <= 0)
 	    {
 	    return null;
 	    }
@@ -45,6 +47,7 @@ public class ProductServiceImpl implements ProductService
 	Product product = createProduct(obj);
 	product = dao.persistProduct(product, userId);
 	Category cat = null;
+	Vendor ven = null;
 	if (obj.getColl() != null && obj.getColl().length() > 0 && !isLong(obj.getColl()))
 	    {
 	    cat = new Category();
@@ -63,38 +66,47 @@ public class ProductServiceImpl implements ProductService
 	    dao.mergeChanges(product);
 	    }
 
-	if (obj.getCategory() != null && obj.getCategory().length() > 0 && isLong(obj.getCategory()))
+	if (obj.getCategory() != null && obj.getCategory().length() > 0 && isLong(obj.getCategory()) && Long.parseLong(obj.getCategory()) > 0)
 	    {
 	    log.info("persistProduct:Going to persist Cateogory : " + obj.getCategory());
 	    Long id = Long.parseLong(obj.getCategory());
-	    if (id > 0)
-		{
-		cat = dao.findCatById(id);
-		log.info("Found Cat as " + cat);
-		Set<Product> products = cat.getProducts();
-		products.add(product);
-		Set<Category> newCats = new HashSet<Category>();
-		newCats.add(cat);
-		product.setCategories(newCats);
-		dao.mergeChanges(cat);
-		dao.mergeChanges(product);
-		}
-
+	    cat = dao.findCatById(id);
+	    log.info("Found Cat as " + cat);
+	    Set<Product> products = cat.getProducts();
+	    products.add(product);
+	    Set<Category> newCats = new HashSet<Category>();
+	    newCats.add(cat);
+	    product.setCategories(newCats);
+	    dao.mergeChanges(cat);
+	    dao.mergeChanges(product);
 	    }
 	else
 	    {
-	    log.info("Not persisting Cateogory : " + obj.getCategory());
+	    log.warn("Not persisting Cateogory : " + obj.getCategory());
 	    }
 
-	//Set<Category> cats = user.getCatogories();
-
-	//	    Set<Product> newPros = new HashSet<Product>();
-	//	    newPros.add(product);
-	//	    cat.setProducts(newPros);
-	//	    cats.add(cat);
-
-	//	    userDao.makePersistent(user);
-
+	if (obj.getVendor() != null && obj.getVendor().length() > 0 && isLong(obj.getVendor()) && Long.parseLong(obj.getVendor()) > 0)
+	    {
+	    log.info("persistProduct:Going to put into this Vendor : " + obj.getVendor());
+	    Long id = Long.parseLong(obj.getVendor());
+	    ven = dao.findVendorById(id);
+	    log.info("Found vendor as " + ven);
+	    product.setVendor(ven);
+	    dao.mergeChanges(product);
+	    }
+	else
+	    {
+	    log.warn("Not persisting Vendor : " + obj.getVendor());
+	    }
+	if (obj.getVendors() != null && obj.getVendors().length() > 0 && !isLong(obj.getVendors()))
+	    {
+	    log.info("Going to persist this vendor: " + obj.getVendors());
+	    ven = new Vendor();
+	    ven.setVen_name(obj.getVendors());
+	    ven = dao.persistVen(ven, userId);
+	    product.setVendor(ven);
+	    dao.mergeChanges(product);
+	    }
 	return product;
 	}
 

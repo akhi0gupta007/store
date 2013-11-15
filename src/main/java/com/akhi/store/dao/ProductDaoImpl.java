@@ -15,6 +15,8 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.akhi.store.general.User;
@@ -130,6 +132,7 @@ public class ProductDaoImpl extends GenericHibernateDAO<Product, Long>
 	}
 
     @Override
+    @Transactional(propagation=Propagation.MANDATORY,isolation=Isolation.READ_COMMITTED)
     public Product persistProduct( Product product, Long userId )
 	{
 	User user = (User) getSession().load(User.class, userId);
@@ -146,6 +149,7 @@ public class ProductDaoImpl extends GenericHibernateDAO<Product, Long>
 	}
 
     @Override
+    @Transactional(propagation=Propagation.MANDATORY,isolation=Isolation.READ_COMMITTED)
     public Category persistCat( Category cat, Long userId )
 	{
 	User user = (User) getSession().load(User.class, userId);
@@ -159,7 +163,24 @@ public class ProductDaoImpl extends GenericHibernateDAO<Product, Long>
 
 	return cat;
 	}
+    
+    @Override
+    @Transactional(propagation=Propagation.MANDATORY,isolation=Isolation.READ_COMMITTED)
+    public Vendor persistVen( Vendor cat, Long userId )
+	{
+	User user = (User) getSession().load(User.class, userId);
+	if (user == null)
+	    {
+	    log.error("persistCat: Could not load user");
+	    return null;
+	    }
+	cat.setUser(user);
+	getSession().saveOrUpdate(cat);
 
+	return cat;
+	}
+
+    @Transactional(propagation=Propagation.MANDATORY)
     public Object mergeChanges( Object entity )
 	{
 	Object obj = getSession().merge(entity);

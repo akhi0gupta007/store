@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.akhi.store.general.User;
+import com.akhi.store.product.Product;
 import com.akhi.store.product.ProductVO;
 import com.akhi.store.service.ProductService;
 
@@ -85,7 +86,16 @@ public class ProductController
 		{
 		product.setId(user.getId());
 		log.warn("Adding product:    :::::::::::::" + product);
-		service.persistProduct(product);
+		Product p = service.persistProduct(product);
+		if (p != null)
+		    {
+		    model.addAttribute("error","Product " + p.getTitle() + " Added Successfully");
+				       
+		    }
+		else
+		    {
+		    model.addAttribute("error", "Error: Could not add Product");
+		    }
 		}
 	    }
 

@@ -32,7 +32,7 @@
 	<div align="center" id="login">
 		<h2>User Login Here</h2>
 
-		<form:form method="POST" commandName="customer">
+		<form:form method="POST" commandName="customer" action="/store/authenticate">
 			<form:errors path="*" cssClass="errorblock" element="div" />
 
 			<table>
