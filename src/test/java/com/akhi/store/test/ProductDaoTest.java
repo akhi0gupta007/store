@@ -10,7 +10,6 @@ package com.akhi.store.test;
 
 import static org.junit.Assert.*;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -29,7 +28,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.akhi.store.dao.ProductDao;
 import com.akhi.store.dao.UserDao;
 import com.akhi.store.general.User;
-import com.akhi.store.product.Category;
 import com.akhi.store.product.Product;
 import com.akhi.store.product.Tag;
 
@@ -50,11 +48,13 @@ import com.akhi.store.product.Tag;
 */
 /*-----------------------------------------------------------------------*/
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations =
-    { "classpath:storeBean.xml" })
+@ContextConfiguration(locations = { "classpath:storeBean.xml"
+})
 @TransactionConfiguration(transactionManager = "txMgr", defaultRollback = false)
-@TestExecutionListeners(
-    { DependencyInjectionTestExecutionListener.class, TransactionalTestExecutionListener.class })
+@TestExecutionListeners({
+                         DependencyInjectionTestExecutionListener.class,
+                         TransactionalTestExecutionListener.class
+})
 public class ProductDaoTest
     {
     @Autowired
@@ -67,30 +67,11 @@ public class ProductDaoTest
     @Transactional
     public final void testMakePersistent()
 	{
-	//	User user = dao.findById(1l, true);
+	
+	//Product product = productDao.findById(4L, false);
 	Product product = makeProduct();
-
-	//	Category cat = new Category("pc", user);
-	//	Set<Product> products = new HashSet<Product>();
-	//	products.add(product);
-	//	cat.setProducts(products);
-	//	Set<Category> cats = new HashSet<Category>();
-	//	cats.add(cat);
-	//
-	//	user.setCatogories(cats);
-	//	product.setCategories(cats);
-	//	Set<Tag> tags = getTags(user);
-	//	user.setTags(tags);
-	//	product.setTags((Set<Tag>) tags);
-	//	for (Tag tag : tags)
-	//	    {
-	//	    HashSet<Product> set = new HashSet<Product>();
-	//	    set.add(product);
-	//	    tag.setProducts(set);
-	//	    }
-	//assertNotNull(dao.makePersistent(user));
-	assertNotNull(productDao.persistProduct(product, 1L));
-
+	product = productDao.persistProduct(product, 1L);
+	productDao.deleteProduct(product);
 	}
 
     private Product makeProduct()

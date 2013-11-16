@@ -22,10 +22,10 @@ import com.akhi.store.validator.UserValidator;
  * Handles requests for the application home page.
  */
 @Controller
-@RequestMapping(value =
-    { "/", "/home" })
-@SessionAttributes(value =
-    { "customer" })
+@RequestMapping(value = { "/", "/home"
+})
+@SessionAttributes(value = { "customer"
+})
 public class HomeController
     {
 
@@ -33,10 +33,10 @@ public class HomeController
 
     @Autowired(required = true)
     @Qualifier("daopowered")
-    private UserService		    service;
+    private UserService                    service;
 
     @Autowired
-    private UserValidator		  validator;
+    private UserValidator                  validator;
 
     @RequestMapping(method = RequestMethod.GET)
     public String home( ModelMap model, HttpSession session )
@@ -47,8 +47,8 @@ public class HomeController
 	return "customer";
 	}
 
-    @RequestMapping(value =
-	{ "/logout" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/logout"
+    }, method = RequestMethod.GET)
     public String logout( ModelMap model, HttpSession session )
 	{
 	log.info("logout");
@@ -60,10 +60,12 @@ public class HomeController
 	return "redirect:/";
 	}
 
-    @RequestMapping(value =
-	{ "/authenticate" }, method = RequestMethod.POST)
-    public String processLogin( @ModelAttribute("customer")
-    User user, BindingResult result, SessionStatus status, ModelMap model )
+    @RequestMapping(value = { "/authenticate"
+    }, method = RequestMethod.POST)
+    public String processLogin( @ModelAttribute("customer") User user,
+	                        BindingResult result,
+	                        SessionStatus status,
+	                        ModelMap model )
 	{
 	log.info("Process Login " + user);
 	validator.validate(user, result);
@@ -76,23 +78,36 @@ public class HomeController
 	    {
 	    log.info("Before Service" + user);
 	    user = service.autheticate(user.getUserId(), user.getPassword());
-	    log.info("processLogin() " + user + " against" + user.getUserId() + "" + user.getPassword());
-	    model.addAttribute("customer", user);
-	    return "redirect:/home/dashboard";
+
+	    if (user != null)
+		{
+		model.addAttribute("customer", user);
+
+		log.warn("<<<<<<<<<<<Redirecting to home page, Login process complete>>>>>>>>>>>>>>");
+		return "redirect:/home/dashboard";
+		}
+	    else
+		{
+		model.addAttribute("error", "Wrong username or password");
+		return "customer";
+		}
 	    }
 
 	}
 
-    @RequestMapping(value =
-	{ "/dashboard" }, method = RequestMethod.POST)
+    @RequestMapping(value = { "/home/dashboard"
+    }, method = RequestMethod.GET)
     public String dashboard( SessionStatus status, ModelMap model )
 	{
+	log.info("Dashboard....................");
 	if (model.containsKey("customer"))
 	    {
 	    User user = (User) model.get("customer");
 	    model.addAttribute("customer", user);
+	    log.info("Dashboard...................." + user);
 	    return "success";
 	    }
+	log.error("No user........................." + model.get("customer"));
 	return "customer";
 
 	}

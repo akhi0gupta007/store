@@ -56,4 +56,6 @@ public interface ProductDao extends GenericDAO<Product, Long>
 
     Vendor persistVen( Vendor ven , Long id);
 
+    boolean deleteProduct( Product product );
+
     }

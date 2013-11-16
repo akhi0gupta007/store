@@ -69,6 +69,7 @@ public class User extends Props
     private Profile	      profile;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+    @Cascade({org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
     private Set<Product>  products   = new HashSet<Product>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)

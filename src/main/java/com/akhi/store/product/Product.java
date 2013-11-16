@@ -89,7 +89,7 @@ public class Product extends Props
     @Temporal(TemporalType.TIMESTAMP)
     private Date	  dateCreated;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "user_products", nullable = false)
     private User	  user;
 

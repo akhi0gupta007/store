@@ -47,9 +47,9 @@ import com.akhi.store.product.Vendor;
 @Repository
 @SuppressWarnings("unchecked")
 public class ProductDaoImpl extends GenericHibernateDAO<Product, Long>
-								      implements
-								      ProductDao,
-								      ApplicationContextAware
+                                                                      implements
+                                                                      ProductDao,
+                                                                      ApplicationContextAware
 
     {
 
@@ -115,7 +115,8 @@ public class ProductDaoImpl extends GenericHibernateDAO<Product, Long>
 	}
 
     @Override
-    public void setApplicationContext( ApplicationContext arg0 ) throws BeansException
+    public void setApplicationContext( ApplicationContext arg0 )
+	throws BeansException
 	{
 	setContext(arg0);
 
@@ -132,7 +133,7 @@ public class ProductDaoImpl extends GenericHibernateDAO<Product, Long>
 	}
 
     @Override
-    @Transactional(propagation=Propagation.MANDATORY,isolation=Isolation.READ_COMMITTED)
+    @Transactional(propagation = Propagation.MANDATORY, isolation = Isolation.READ_COMMITTED)
     public Product persistProduct( Product product, Long userId )
 	{
 	User user = (User) getSession().load(User.class, userId);
@@ -149,7 +150,7 @@ public class ProductDaoImpl extends GenericHibernateDAO<Product, Long>
 	}
 
     @Override
-    @Transactional(propagation=Propagation.MANDATORY,isolation=Isolation.READ_COMMITTED)
+    @Transactional(propagation = Propagation.MANDATORY, isolation = Isolation.READ_COMMITTED)
     public Category persistCat( Category cat, Long userId )
 	{
 	User user = (User) getSession().load(User.class, userId);
@@ -163,9 +164,9 @@ public class ProductDaoImpl extends GenericHibernateDAO<Product, Long>
 
 	return cat;
 	}
-    
+
     @Override
-    @Transactional(propagation=Propagation.MANDATORY,isolation=Isolation.READ_COMMITTED)
+    @Transactional(propagation = Propagation.MANDATORY, isolation = Isolation.READ_COMMITTED)
     public Vendor persistVen( Vendor cat, Long userId )
 	{
 	User user = (User) getSession().load(User.class, userId);
@@ -180,7 +181,7 @@ public class ProductDaoImpl extends GenericHibernateDAO<Product, Long>
 	return cat;
 	}
 
-    @Transactional(propagation=Propagation.MANDATORY)
+    @Transactional(propagation = Propagation.MANDATORY)
     public Object mergeChanges( Object entity )
 	{
 	Object obj = getSession().merge(entity);
@@ -203,6 +204,16 @@ public class ProductDaoImpl extends GenericHibernateDAO<Product, Long>
     public Vendor findVendorById( Long id )
 	{
 	return (Vendor) getSession().load(Vendor.class, id);
+	}
+
+    @Override
+    public boolean deleteProduct( Product product )
+	{
+	Long userId = product.getUser().getId();
+	User user = (User) getSession().load(User.class, userId);
+	user.getProducts().remove(product);
+	getSession().update(user);
+	return true;
 	}
 
     }
