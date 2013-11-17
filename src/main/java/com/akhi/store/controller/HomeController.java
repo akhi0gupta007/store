@@ -1,5 +1,7 @@
 package com.akhi.store.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
@@ -9,13 +11,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.akhi.store.general.User;
+import com.akhi.store.product.Product;
 import com.akhi.store.service.UserService;
+import com.akhi.store.service.UserService.Order;
 import com.akhi.store.validator.UserValidator;
 
 /**
@@ -97,7 +103,11 @@ public class HomeController
 
     @RequestMapping(value = { "/home/dashboard"
     }, method = RequestMethod.GET)
-    public String dashboard( SessionStatus status, ModelMap model )
+    public String dashboard( SessionStatus status,
+	                     ModelMap model,
+	                     @RequestParam(value = "page", defaultValue = "0", required = false) String offset,
+	                     @RequestParam(value = "by", required = false, defaultValue = "id") String orderBy,
+	                     @RequestParam(value = "ord", required = false, defaultValue = "asc") String ord )
 	{
 	log.info("Dashboard....................");
 	if (model.containsKey("customer"))
@@ -105,6 +115,24 @@ public class HomeController
 	    User user = (User) model.get("customer");
 	    model.addAttribute("customer", user);
 	    log.info("Dashboard...................." + user);
+	    Order order = null;
+
+	    if (ord != null)
+		{
+		if (ord.equalsIgnoreCase("asc"))
+		    order = Order.ASC;
+		else if (ord.equalsIgnoreCase("dsc"))
+		    order = Order.DSC;
+		else
+		    order = Order.ASC;
+
+		}
+	    List<Product> products = service.getProducts(user.getId(),
+		                                         4,
+		                                         isInteger(offset) ? Integer.parseInt(offset) : 0,
+		                                         orderBy,
+		                                         order);
+	    model.addAttribute("arr", products);
 	    return "success";
 	    }
 	log.error("No user........................." + model.get("customer"));
@@ -120,6 +148,19 @@ public class HomeController
     public void setValidator( UserValidator validator )
 	{
 	this.validator = validator;
+	}
+
+    public boolean isInteger( String input )
+	{
+	try
+	    {
+	    Integer.parseInt(input);
+	    return true;
+	    }
+	catch (Exception ex)
+	    {
+	    return false;
+	    }
 	}
 
     }

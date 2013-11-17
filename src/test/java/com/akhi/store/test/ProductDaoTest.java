@@ -11,6 +11,7 @@ package com.akhi.store.test;
 import static org.junit.Assert.*;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -67,11 +68,21 @@ public class ProductDaoTest
     @Transactional
     public final void testMakePersistent()
 	{
-	
+
 	//Product product = productDao.findById(4L, false);
 	Product product = makeProduct();
-	product = productDao.persistProduct(product, 1L);
-	productDao.deleteProduct(product);
+	//product = productDao.persistProduct(product, 1L);
+	List<Product> result = dao.getProducts(1l, 10, 0, "asc", "title");
+	//List<Product> result = productDao.getProducts(1l);
+	//System.err.println("results:   " + result);
+
+	for (Product pro : result)
+	    {
+	    System.err.println(pro);
+	    System.out.println(pro.getVendor());
+
+	    }
+	//productDao.deleteProduct(product);
 	}
 
     private Product makeProduct()

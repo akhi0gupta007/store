@@ -15,6 +15,11 @@ import com.akhi.store.product.Product;
 import com.akhi.store.product.ProductVO;
 import com.akhi.store.product.Vendor;
 
+/**
+ * Product Service
+ * @author akhilesh
+ *
+ */
 @Service
 public class ProductServiceImpl implements ProductService
     {

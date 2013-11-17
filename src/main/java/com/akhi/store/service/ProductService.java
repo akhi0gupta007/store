@@ -13,5 +13,6 @@ import com.akhi.store.product.ProductVO;
 public interface ProductService {
 
 	Product persistProduct(ProductVO obj);
+
 	
 }

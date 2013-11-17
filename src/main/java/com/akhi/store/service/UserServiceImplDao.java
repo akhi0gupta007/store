@@ -8,6 +8,8 @@
  */
 package com.akhi.store.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.akhi.store.dao.UserDao;
 import com.akhi.store.dao.UserDaoImpl;
 import com.akhi.store.general.User;
+import com.akhi.store.product.Product;
 
 /*-----------------------------------------------------------------------*//**
 * 
@@ -44,7 +47,7 @@ public class UserServiceImplDao implements UserService
     private static org.apache.log4j.Logger log = Logger.getLogger(UserServiceImplDao.class);
 
     @Inject
-    private UserDao			userDao;
+    private UserDao                        userDao;
 
     @Override
     @Transactional
@@ -85,5 +88,20 @@ public class UserServiceImplDao implements UserService
 	User user = userDao.findById(id);
 	return user;
 	}
+
+    @Override
+    @Transactional
+    public List<Product> getProducts( Long id,
+                                      int max,
+                                      int offset,
+                                      String orderBy,
+                                      Order order )
+	{
+	
+	List<Product> result = userDao.getProducts(id,max,offset,order.toString(),orderBy);
+	return result;
+	}
+
+
 
     }

@@ -8,8 +8,10 @@
  */
 package com.akhi.store.service;
 
-import com.akhi.store.general.User;
+import java.util.List;
 
+import com.akhi.store.general.User;
+import com.akhi.store.product.Product;
 
 /*-----------------------------------------------------------------------*//**
 *
@@ -30,10 +32,22 @@ import com.akhi.store.general.User;
 
 public interface UserService
     {
-    
-    User addUser(User user);
-    void removeUser(User user);
-    User autheticate(String userId,String password);
-    User findById(Long id,boolean lock);
-    
+    enum Order
+	{
+	ASC, DSC
+	}
+
+    User addUser( User user );
+
+    void removeUser( User user );
+
+    User autheticate( String userId, String password );
+
+    User findById( Long id, boolean lock );
+
+    List<Product> getProducts( Long id,
+	                       int max,
+	                       int offset,
+	                       String orderBy,
+	                       Order order );
     }

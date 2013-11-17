@@ -44,7 +44,7 @@ public class Product extends Props
     @Column(nullable = true)
     private String	description;
 
-    @OneToOne
+    @OneToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "VENDOR_ID", nullable = true)
     private Vendor	vendor;
 
@@ -337,8 +337,10 @@ public class Product extends Props
     @Override
     public String toString()
 	{
-	return "Product [id=" + id + ", title=" + title + ", description=" + description + ", vendor=" + vendor + ", image=" + image + ", sel_price=" + sel_price + ", list_price=" + list_price + ", weight=" + weight + ", dimen=" + dimen + ", pkg_dimen=" + pkg_dimen + ", pro_id=" + pro_id + ", quan=" + quan + ", tax=" + tax + ", ship_addr=" + ship_addr + ", ofo=" + ofo + ", avail=" + avail + ", dateCreated=" + dateCreated + ", user=" + user + ", categories=" + categories + ", tags=" + tags + "]";
+	return "Product [id=" + id + ", title=" + title + ", description=" + description + ", image=" + image + ", weight=" + weight + ", pro_id=" + pro_id + ", quan=" + quan + ", user=" + user + "]";
 	}
+
+
 
     /*    public Variants getVariants()
     	{

@@ -33,7 +33,7 @@ import com.akhi.store.general.User;
 /*-----------------------------------------------------------------------*/
 
 //@Service(value="userService")
-public class UserServiceImpl implements UserService
+public abstract class UserServiceImpl implements UserService
     {
 
     private SessionFactory sessionFactory;

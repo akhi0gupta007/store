@@ -8,8 +8,11 @@
  */
 package com.akhi.store.dao;
 
+import java.util.List;
+
 import com.akhi.store.general.Profile;
 import com.akhi.store.general.User;
+import com.akhi.store.product.Product;
 
 
 /*-----------------------------------------------------------------------*//**
@@ -36,4 +39,10 @@ public interface UserDao extends GenericDAO<User, Long>
     void deleteProfile( Profile entity );
     
     User findById(Long id);
+
+    List<Product> getProducts( Long id,
+                               int max,
+                               int offset,
+                               String orderBy,
+                               String order );
     }
