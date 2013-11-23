@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,6 +32,7 @@ import com.akhi.store.general.User;
  * @author akhilesh
  * 
  */
+@NamedQuery(name="getByUser",query="from product as p where p.user = :id")
 @Entity(name = "product")
 public class Product extends Props
     {

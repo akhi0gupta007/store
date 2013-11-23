@@ -98,9 +98,9 @@ th.specalt {
 		<div id="show">
 
 
-			<form:form action="">
+			<form:form action="search">
 				<h3>Showing Your Products</h3> Search Anything ><input type="text"
-					name="tag" />
+					name="keywords" />
 				<input type="submit" placeholder="Search by tag" />
 			</form:form>
 
@@ -163,7 +163,7 @@ th.specalt {
 			    int pg, back = 0;
 			    if (request.getParameter("page") != null)
 					{
-				
+
 					pg = Integer.parseInt(request.getParameter("page"));
 					back = pg - 4;
 					pg = pg + 4;

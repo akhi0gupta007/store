@@ -28,10 +28,10 @@ import com.akhi.store.validator.UserValidator;
  * Handles requests for the application home page.
  */
 @Controller
-@RequestMapping(value = { "/", "/home"
-})
-@SessionAttributes(value = { "customer"
-})
+@RequestMapping(value =
+    { "/", "/home" })
+@SessionAttributes(value =
+    { "customer" })
 public class HomeController
     {
 
@@ -39,10 +39,10 @@ public class HomeController
 
     @Autowired(required = true)
     @Qualifier("daopowered")
-    private UserService                    service;
+    private UserService		    service;
 
     @Autowired
-    private UserValidator                  validator;
+    private UserValidator		  validator;
 
     @RequestMapping(method = RequestMethod.GET)
     public String home( ModelMap model, HttpSession session )
@@ -53,8 +53,8 @@ public class HomeController
 	return "customer";
 	}
 
-    @RequestMapping(value = { "/logout"
-    }, method = RequestMethod.GET)
+    @RequestMapping(value =
+	{ "/logout" }, method = RequestMethod.GET)
     public String logout( ModelMap model, HttpSession session )
 	{
 	log.info("logout");
@@ -66,12 +66,10 @@ public class HomeController
 	return "redirect:/";
 	}
 
-    @RequestMapping(value = { "/authenticate"
-    }, method = RequestMethod.POST)
-    public String processLogin( @ModelAttribute("customer") User user,
-	                        BindingResult result,
-	                        SessionStatus status,
-	                        ModelMap model )
+    @RequestMapping(value =
+	{ "/authenticate" }, method = RequestMethod.POST)
+    public String processLogin( @ModelAttribute("customer")
+    User user, BindingResult result, SessionStatus status, ModelMap model )
 	{
 	log.info("Process Login " + user);
 	validator.validate(user, result);
@@ -101,13 +99,16 @@ public class HomeController
 
 	}
 
-    @RequestMapping(value = { "/home/dashboard"
-    }, method = RequestMethod.GET)
+    @RequestMapping(value =
+	{ "/home/dashboard" }, method = RequestMethod.GET)
     public String dashboard( SessionStatus status,
-	                     ModelMap model,
-	                     @RequestParam(value = "page", defaultValue = "0", required = false) String offset,
-	                     @RequestParam(value = "by", required = false, defaultValue = "id") String orderBy,
-	                     @RequestParam(value = "ord", required = false, defaultValue = "asc") String ord )
+			     ModelMap model,
+			     @RequestParam(value = "page", defaultValue = "0", required = false)
+			     String offset,
+			     @RequestParam(value = "by", required = false, defaultValue = "id")
+			     String orderBy,
+			     @RequestParam(value = "ord", required = false, defaultValue = "asc")
+			     String ord )
 	{
 	log.info("Dashboard....................");
 	if (model.containsKey("customer"))
@@ -128,16 +129,35 @@ public class HomeController
 
 		}
 	    List<Product> products = service.getProducts(user.getId(),
-		                                         4,
-		                                         isInteger(offset) ? Integer.parseInt(offset) : 0,
-		                                         orderBy,
-		                                         order);
+							 4,
+							 isInteger(offset) ? Integer.parseInt(offset) : 0,
+							 orderBy,
+							 order);
 	    model.addAttribute("arr", products);
 	    return "success";
 	    }
 	log.error("No user........................." + model.get("customer"));
 	return "customer";
 
+	}
+
+    @RequestMapping(value =
+	{ "/home/search" }, method = RequestMethod.POST)
+    public String search( ModelMap model, @RequestParam(value = "keywords")
+    String keywords )
+	{
+	log.info("Dashboard, Search by criterion...................." + keywords);
+	if (model.containsKey("customer"))
+	    {
+	    User user = (User) model.get("customer");
+	    model.addAttribute("customer", user);
+	    log.info("Dashboard...................." + user);
+	    
+	    List<Product> products = service.searchProducts(user.getId(), keywords);
+	    model.addAttribute("arr", products);
+	    return "success";
+	    }
+	return dashboard(null, model, "0", "id", "asc");
 	}
 
     public UserValidator getValidator()

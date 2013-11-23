@@ -50,4 +50,8 @@ public interface UserService
 	                       int offset,
 	                       String orderBy,
 	                       Order order );
+
+
+
+    List<Product> searchProducts( Long id, String keywords );
     }

@@ -48,7 +48,7 @@ public class UserDaoImpl extends GenericHibernateDAO<User, Long>
                                                                 UserDao
     {
 
-    private static org.apache.log4j.Logger log = Logger.getLogger(UserDaoImpl.class);
+    protected static org.apache.log4j.Logger log = Logger.getLogger(UserDaoImpl.class);
 
     @Override
     public User findByIdAndPassword( String id, String password )
@@ -108,6 +108,7 @@ public class UserDaoImpl extends GenericHibernateDAO<User, Long>
 	return user;
 	}
 
+    @SuppressWarnings("unchecked")
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
     public List<Product> getProducts( Long id,
@@ -126,5 +127,20 @@ public class UserDaoImpl extends GenericHibernateDAO<User, Long>
 	List<?> results = query.list();
 	log.info("Result: getProducts() Useservice " + results);
 	return (List<Product>) results;
+	}
+
+    @Override
+    public User getAddr( long id )
+	{
+	
+	return null;
+	}
+
+    @Override
+    public List<Product> findProducts( Long id, String keywords )
+	{
+
+	
+	return null;
 	}
     }

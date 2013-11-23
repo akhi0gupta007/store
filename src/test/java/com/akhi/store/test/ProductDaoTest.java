@@ -83,6 +83,8 @@ public class ProductDaoTest
 
 	    }
 	//productDao.deleteProduct(product);
+	
+	dao.getAddr(1L);
 	}
 
     private Product makeProduct()

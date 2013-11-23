@@ -44,10 +44,10 @@ import com.akhi.store.product.Product;
 @Service(value = "daopowered")
 public class UserServiceImplDao implements UserService
     {
-    private static org.apache.log4j.Logger log = Logger.getLogger(UserServiceImplDao.class);
+    protected static org.apache.log4j.Logger log = Logger.getLogger(UserServiceImplDao.class);
 
     @Inject
-    private UserDao                        userDao;
+    private UserDao			userDao;
 
     @Override
     @Transactional
@@ -92,16 +92,26 @@ public class UserServiceImplDao implements UserService
     @Override
     @Transactional
     public List<Product> getProducts( Long id,
-                                      int max,
-                                      int offset,
-                                      String orderBy,
-                                      Order order )
+				      int max,
+				      int offset,
+				      String orderBy,
+				      Order order )
 	{
-	
-	List<Product> result = userDao.getProducts(id,max,offset,order.toString(),orderBy);
+
+	List<Product> result = userDao.getProducts(id,
+						   max,
+						   offset,
+						   order.toString(),
+						   orderBy);
 	return result;
 	}
 
+    @Override
+    public List<Product> searchProducts( Long id, String keywords )
+	{
+	List<Product> result = userDao.findProducts(id, keywords);
+	return result;
+	}
 
 
     }

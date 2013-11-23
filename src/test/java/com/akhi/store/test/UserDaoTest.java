@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.akhi.store.dao.ProductDao;
 import com.akhi.store.dao.UserDao;
+import com.akhi.store.general.Address;
 import com.akhi.store.general.Profile;
 import com.akhi.store.general.User;
 import com.akhi.store.product.Category;
@@ -61,6 +62,11 @@ public class UserDaoTest
 	profile.setPhone("9718304337");
 	profile.setUser(user);
 	user.setProfile(profile);
+	Address addr = new Address();
+	addr.setAddress("hello");
+	Set<Address> addrs = new HashSet<Address>();
+	addrs.add(addr);
+	user.setAddresses(addrs);
 	log.info("DAO: " + dao + " we have product DAO " + productDao);
 	Product product = makeProduct();
 	Category cat = new Category();

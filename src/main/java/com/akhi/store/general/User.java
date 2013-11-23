@@ -6,6 +6,7 @@ package com.akhi.store.general;
 import java.util.Set;
 import java.util.Date;
 import java.util.HashSet;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.Cascade;
@@ -42,6 +44,19 @@ public class User extends Props
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long		 id;
 
+    @Version
+    private int version;
+    
+    public int getVersion()
+        {
+        return version;
+        }
+
+    public void setVersion( int version )
+        {
+        this.version = version;
+        }
+
     @Column(nullable = false, unique = true)
     private String	       userId;
 
@@ -63,6 +78,10 @@ public class User extends Props
     @Column(nullable = true)
     private String	       domain;
 
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name="user_fk")
+    private Set<Address> addresses = new HashSet<Address>();
+    
     @OneToOne(cascade = CascadeType.ALL, optional = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "PROFILE_ID")
     @Cascade({org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
@@ -226,6 +245,16 @@ public class User extends Props
     public void setProducts( Set<Product> products )
 	{
 	this.products = products;
+	}
+
+    public Set<Address> getAddresses()
+	{
+	    return addresses;
+	}
+
+    public void setAddresses( Set<Address> addresses )
+	{
+	    this.addresses = addresses;
 	}
 
     }

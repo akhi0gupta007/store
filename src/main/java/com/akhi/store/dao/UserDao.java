@@ -45,4 +45,8 @@ public interface UserDao extends GenericDAO<User, Long>
                                int offset,
                                String orderBy,
                                String order );
+
+    User getAddr( long l );
+
+    List<Product> findProducts( Long id, String keywords );
     }
